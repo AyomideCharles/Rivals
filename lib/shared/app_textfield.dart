@@ -5,8 +5,11 @@ class AppTextField extends StatelessWidget {
   final String? hint;
   final TextEditingController? controller;
   final bool obscureText;
-  final IconData? prefixIcon;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final TextInputType keyboardType;
+  final bool? hasSuffixIcon;
+  final bool? hasPrefixIcon;
 
   const AppTextField({
     super.key,
@@ -16,6 +19,9 @@ class AppTextField extends StatelessWidget {
     this.obscureText = false,
     this.prefixIcon,
     this.keyboardType = TextInputType.text,
+    this.suffixIcon,
+    this.hasSuffixIcon = false,
+    this.hasPrefixIcon = false,
   });
 
   @override
@@ -27,7 +33,8 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
       ),
     );
   }
