@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/features/auth/login.dart';
 import 'package:rivals/features/auth/sign_up.dart';
 import 'package:rivals/shared/app_button.dart';
 import 'package:rivals/shared/app_logo_text.dart';
@@ -81,7 +82,15 @@ class Onboarding extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 8),
-              AppButton2(label: 'I already have an account', onPressed: () {}),
+              AppButton2(
+                label: 'I already have an account',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
+                },
+              ),
             ],
           ),
         ),

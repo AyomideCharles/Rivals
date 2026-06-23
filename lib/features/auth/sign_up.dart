@@ -95,7 +95,7 @@ class _SignUpState extends State<SignUp> {
                 Center(
                   child: RichText(
                     text: TextSpan(
-                      // style: context.tt.displayLarge,
+                      style: context.tt.titleSmall,
                       children: [
                         TextSpan(text: 'Already a member? '),
                         TextSpan(
