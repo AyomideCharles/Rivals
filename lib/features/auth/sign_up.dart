@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/login.dart';
 import 'package:rivals/features/auth/provider/auth_provider.dart';
-import 'package:rivals/features/auth/select_club.dart';
+import 'package:rivals/features/auth/league_selection.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
 import 'package:rivals/shared/app_textfield.dart';
@@ -50,7 +50,7 @@ class _SignUpState extends State<SignUp> {
       if (success && context.mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SelectClub()),
+          MaterialPageRoute(builder: (context) => LeagueSelection()),
         );
       }
     } catch (e) {
@@ -107,6 +107,12 @@ class _SignUpState extends State<SignUp> {
                     AppTextField(
                       hint: 'e.g. Alex rivera',
                       controller: displayNameController,
+                      validator: (String? value) {
+                        if (value == '' || value!.isEmpty) {
+                          return 'Enter your display name';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 30),
                     Text('EMAIL', style: context.tt.bodySmall),
@@ -151,11 +157,7 @@ class _SignUpState extends State<SignUp> {
                     AppButton(
                       label: 'Continue',
                       onPressed: () {
-                        // signUp(context);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => SelectClub()),
-                        );
+                        signUp(context);
                       },
                     ),
                     SizedBox(height: 15),
