@@ -1,11 +1,13 @@
 const List<Map<String, dynamic>> clubs = [
-  // ── Premier League ──────────────────────────────────────
+  // ── Premier League (20 clubs) ───────────────────────────
   {
     'name': 'Arsenal',
     'shortName': 'ARS',
     'league': 'Premier League',
     'country': 'England',
     'color': '#EF0107',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/uyhbfe1612467038.png',
   },
   {
     'name': 'Aston Villa',
@@ -13,6 +15,17 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#95BFE5',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/jykrpv1717309891.png',
+  },
+  {
+    'name': 'Bournemouth',
+    'shortName': 'BOU',
+    'league': 'Premier League',
+    'country': 'England',
+    'color': '#DA291C',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/y08nak1534071116.png',
   },
   {
     'name': 'Brentford',
@@ -20,6 +33,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#E30613',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/grv1aw1546453779.png',
   },
   {
     'name': 'Brighton',
@@ -27,6 +42,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#0057B8',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/ywypts1448810904.png',
   },
   {
     'name': 'Chelsea',
@@ -34,6 +51,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#034694',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/yvwvtu1448813215.png',
   },
   {
     'name': 'Crystal Palace',
@@ -41,6 +60,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#1B458F',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/ia6i3m1656014992.png',
   },
   {
     'name': 'Everton',
@@ -48,6 +69,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#003399',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/eqayrf1523184794.png',
   },
   {
     'name': 'Fulham',
@@ -55,6 +78,24 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/xwwvyt1448811086.png',
+  },
+  {
+    'name': 'Ipswich Town',
+    'shortName': 'IPS',
+    'league': 'Premier League',
+    'country': 'England',
+    'color': '#0044A9',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Leicester City',
+    'shortName': 'LEI',
+    'league': 'Premier League',
+    'country': 'England',
+    'color': '#003090',
+    'badgeUrl': '',
   },
   {
     'name': 'Liverpool',
@@ -62,6 +103,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#C8102E',
+    'badgeUrl': '',
   },
   {
     'name': 'Man City',
@@ -69,6 +111,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#6CABDD',
+    'badgeUrl': '',
   },
   {
     'name': 'Man United',
@@ -76,6 +119,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#DA291C',
+    'badgeUrl': '',
   },
   {
     'name': 'Newcastle',
@@ -83,6 +127,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#241F20',
+    'badgeUrl': '',
   },
   {
     'name': 'Nottm Forest',
@@ -90,6 +135,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#DD0000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Southampton',
+    'shortName': 'SOU',
+    'league': 'Premier League',
+    'country': 'England',
+    'color': '#D71920',
+    'badgeUrl': '',
   },
   {
     'name': 'Tottenham',
@@ -97,6 +151,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#132257',
+    'badgeUrl': '',
   },
   {
     'name': 'West Ham',
@@ -104,6 +159,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#7A263A',
+    'badgeUrl': '',
   },
   {
     'name': 'Wolves',
@@ -111,15 +167,27 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Premier League',
     'country': 'England',
     'color': '#FDB913',
+    'badgeUrl': '',
   },
 
-  // ── La Liga ─────────────────────────────────────────────
+  // ── La Liga (20 clubs) ──────────────────────────────────
+  {
+    'name': 'Alaves',
+    'shortName': 'ALA',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#0070B8',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/mfn99h1734673842.png',
+  },
   {
     'name': 'Athletic Bilbao',
     'shortName': 'ATH',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#EE2523',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/68w7fe1639408210.png',
   },
   {
     'name': 'Atletico Madrid',
@@ -127,6 +195,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#CB3524',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/0ulh3q1719984315.png',
   },
   {
     'name': 'Barcelona',
@@ -134,6 +204,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#A50044',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/wq9sir1639406443.png',
   },
   {
     'name': 'Betis',
@@ -141,6 +213,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#00954C',
+    'badgeUrl': '',
   },
   {
     'name': 'Celta Vigo',
@@ -148,6 +221,17 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#8BBCE4',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/xfjtku1690436219.png',
+  },
+  {
+    'name': 'Espanyol',
+    'shortName': 'ESP',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#0070B8',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/867nzz1681703222.png',
   },
   {
     'name': 'Getafe',
@@ -155,6 +239,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#005999',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/eyh2891655594452.png',
   },
   {
     'name': 'Girona',
@@ -162,6 +248,31 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#CD1421',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Las Palmas',
+    'shortName': 'LPA',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#FFD700',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Leganes',
+    'shortName': 'LEG',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#003DA5',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Mallorca',
+    'shortName': 'MAL',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#C8102E',
+    'badgeUrl': '',
   },
   {
     'name': 'Osasuna',
@@ -169,6 +280,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#D2112B',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Rayo Vallecano',
+    'shortName': 'RAY',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#CC0000',
+    'badgeUrl': '',
   },
   {
     'name': 'Real Madrid',
@@ -176,6 +296,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#FEBE10',
+    'badgeUrl': '',
   },
   {
     'name': 'Real Sociedad',
@@ -183,6 +304,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#0067A5',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Real Valladolid',
+    'shortName': 'VLD',
+    'league': 'La Liga',
+    'country': 'Spain',
+    'color': '#6A0DAD',
+    'badgeUrl': '',
   },
   {
     'name': 'Sevilla',
@@ -190,6 +320,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#D4011D',
+    'badgeUrl': '',
   },
   {
     'name': 'Valencia',
@@ -197,6 +328,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#F5A000',
+    'badgeUrl': '',
   },
   {
     'name': 'Villarreal',
@@ -204,15 +336,18 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#FFDD00',
+    'badgeUrl': '',
   },
 
-  // ── Serie A ─────────────────────────────────────────────
+  // ── Serie A (20 clubs) ──────────────────────────────────
   {
     'name': 'AC Milan',
     'shortName': 'MIL',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#FB090B',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/wvspur1448806617.png',
   },
   {
     'name': 'Atalanta',
@@ -220,6 +355,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#1E4296',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/qix5ku1780561327.png',
   },
   {
     'name': 'Bologna',
@@ -227,6 +364,34 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#9B1932',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/2qi1u31655592366.png',
+  },
+  {
+    'name': 'Cagliari',
+    'shortName': 'CAG',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/wvsvxt1447534471.png',
+  },
+  {
+    'name': 'Como',
+    'shortName': 'COM',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#003DA5',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/02x81t1627405841.png',
+  },
+  {
+    'name': 'Empoli',
+    'shortName': 'EMP',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#0070B8',
+    'badgeUrl': '',
   },
   {
     'name': 'Fiorentina',
@@ -234,6 +399,25 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#4B0082',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/hc8nhu1656098030.png',
+  },
+  {
+    'name': 'Genoa',
+    'shortName': 'GEN',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/52s8dn1655553600.png',
+  },
+  {
+    'name': 'Hellas Verona',
+    'shortName': 'HEL',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#FFD700',
+    'badgeUrl': '',
   },
   {
     'name': 'Inter Milan',
@@ -241,6 +425,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#010E80',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/ryhu6d1617113103.png',
   },
   {
     'name': 'Juventus',
@@ -248,6 +434,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#000000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/uxf0gr1742983727.png',
   },
   {
     'name': 'Lazio',
@@ -255,6 +443,23 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#87D8F7',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Lecce',
+    'shortName': 'LEC',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#FFD700',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Monza',
+    'shortName': 'MOZ',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#CC0000',
+    'badgeUrl': '',
   },
   {
     'name': 'Napoli',
@@ -262,6 +467,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#12A0C3',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Parma',
+    'shortName': 'PAR',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#FFD700',
+    'badgeUrl': '',
   },
   {
     'name': 'AS Roma',
@@ -269,6 +483,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#8E1F2F',
+    'badgeUrl': '',
   },
   {
     'name': 'Torino',
@@ -276,15 +491,43 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#731012',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Udinese',
+    'shortName': 'UDI',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#000000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Venezia',
+    'shortName': 'VEN',
+    'league': 'Serie A',
+    'country': 'Italy',
+    'color': '#000000',
+    'badgeUrl': '',
   },
 
-  // ── Bundesliga ──────────────────────────────────────────
+  // ── Bundesliga (18 clubs) ───────────────────────────────
+  {
+    'name': 'Augsburg',
+    'shortName': 'AUG',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#BA3733',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/xqyyvq1473453233.png',
+  },
   {
     'name': 'Bayer Leverkusen',
     'shortName': 'B04',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E32221',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/3x9k851726760113.png',
   },
   {
     'name': 'Bayern Munich',
@@ -292,6 +535,16 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#DC052D',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/01ogkh1716960412.png',
+  },
+  {
+    'name': 'Bochum',
+    'shortName': 'BOC',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#005CA9',
+    'badgeUrl': '',
   },
   {
     'name': 'Borussia Dortmund',
@@ -299,6 +552,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#FDE100',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/tqo8ge1716960353.png',
   },
   {
     'name': "Borussia M'gladbach",
@@ -306,6 +561,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#000000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/sysurw1473453380.png',
   },
   {
     'name': 'Eintracht Frankfurt',
@@ -313,6 +570,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E1000F',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/rurwpy1473453269.png',
   },
   {
     'name': 'Freiburg',
@@ -320,6 +579,17 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E8001C',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/urwtup1473453288.png',
+  },
+  {
+    'name': 'Hamburg',
+    'shortName': 'HSV',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#003FA3',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/tvtppt1473453296.png',
   },
   {
     'name': 'Hoffenheim',
@@ -327,6 +597,24 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#1961AC',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/9hwvb21621593919.png',
+  },
+  {
+    'name': 'Holstein Kiel',
+    'shortName': 'KIE',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#C8102E',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Mainz',
+    'shortName': 'MAI',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#CC0000',
+    'badgeUrl': '',
   },
   {
     'name': 'RB Leipzig',
@@ -334,6 +622,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#DD0741',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'St. Pauli',
+    'shortName': 'STP',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#8B3A3A',
+    'badgeUrl': '',
   },
   {
     'name': 'Stuttgart',
@@ -341,6 +638,23 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E32219',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Union Berlin',
+    'shortName': 'UNB',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#CC0000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Werder Bremen',
+    'shortName': 'WER',
+    'league': 'Bundesliga',
+    'country': 'Germany',
+    'color': '#1D9A4E',
+    'badgeUrl': '',
   },
   {
     'name': 'Wolfsburg',
@@ -348,15 +662,54 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#65B32E',
+    'badgeUrl': '',
   },
 
-  // ── Ligue 1 ─────────────────────────────────────────────
+  // ── Ligue 1 (18 clubs) ──────────────────────────────────
+  {
+    'name': 'Angers',
+    'shortName': 'ANG',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#000000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/ix6q4w1678808069.png',
+  },
+  {
+    'name': 'Auxerre',
+    'shortName': 'AUX',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#003DA5',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/lzdtbf1658753355.png',
+  },
+  {
+    'name': 'Brest',
+    'shortName': 'BRE',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/z69be41598797026.png',
+  },
+  {
+    'name': 'Le Havre',
+    'shortName': 'HAV',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#003DA5',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/aikowk1546475003.png',
+  },
   {
     'name': 'Lens',
     'shortName': 'LEN',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#FFD700',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png',
   },
   {
     'name': 'Lille',
@@ -364,6 +717,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#EE1C25',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/2giize1534005340.png',
   },
   {
     'name': 'Lyon',
@@ -371,6 +726,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#0055A4',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png',
   },
   {
     'name': 'Marseille',
@@ -378,6 +735,8 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#2FAEE0',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/c6bazh1779212287.png',
   },
   {
     'name': 'Monaco',
@@ -385,6 +744,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#D4011D',
+    'badgeUrl': '',
   },
   {
     'name': 'Montpellier',
@@ -392,6 +752,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#F37020',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Nantes',
+    'shortName': 'NAN',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#FFD700',
+    'badgeUrl': '',
   },
   {
     'name': 'Nice',
@@ -399,6 +768,7 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#000000',
+    'badgeUrl': '',
   },
   {
     'name': 'PSG',
@@ -406,6 +776,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#004170',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Reims',
+    'shortName': 'REI',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#CC0000',
+    'badgeUrl': '',
   },
   {
     'name': 'Rennes',
@@ -413,6 +792,15 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#E5001B',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Saint-Etienne',
+    'shortName': 'STE',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#1D9A4E',
+    'badgeUrl': '',
   },
   {
     'name': 'Strasbourg',
@@ -420,5 +808,14 @@ const List<Map<String, dynamic>> clubs = [
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#0055A4',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Toulouse',
+    'shortName': 'TOU',
+    'league': 'Ligue 1',
+    'country': 'France',
+    'color': '#6A0DAD',
+    'badgeUrl': '',
   },
 ];

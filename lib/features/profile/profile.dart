@@ -10,6 +10,7 @@ class Profile extends StatelessWidget {
     final auth = context.watch<AuthProvider>();
 
     return Scaffold(
+      
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: SafeArea(
