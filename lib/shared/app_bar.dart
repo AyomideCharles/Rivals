@@ -8,6 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final VoidCallback? onBackPressed;
   final bool centerTitle;
+  final bool backButton;
 
   const CustomAppBar({
     super.key,
@@ -16,6 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.onBackPressed,
     this.centerTitle = false,
+    this.backButton = true,
   });
 
   @override
@@ -34,19 +36,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           : title != null
           ? Text(title!, style: context.tt.titleLarge)
           : null,
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(color: context.cs.outline, width: 1),
-          color: context.cs.surface,
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: IconButton(
-          padding: EdgeInsets.zero,
-          icon: Icon(Icons.navigate_before, color: context.cs.onSurface),
-          onPressed: onBackPressed ?? () => Navigator.pop(context),
-        ),
-      ),
+      leading: backButton
+          ? Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                border: Border.all(color: context.cs.outline, width: 1),
+                color: context.cs.surface,
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: Icon(Icons.navigate_before, color: context.cs.onSurface),
+                onPressed: onBackPressed ?? () => Navigator.pop(context),
+              ),
+            )
+          : null,
     );
   }
 }

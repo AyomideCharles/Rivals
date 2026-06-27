@@ -9,10 +9,8 @@ import 'package:rivals/features/auth/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final themeProvider = ThemeProvider();
   await themeProvider.init();
-
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => themeProvider)],

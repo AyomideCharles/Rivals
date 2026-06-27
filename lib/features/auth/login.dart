@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:rivals/bottom_navigation.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/forgot_password.dart';
+import 'package:rivals/features/auth/sign_up.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
 import 'package:rivals/shared/app_textfield.dart';
@@ -83,7 +85,15 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(height: 35),
-                AppButton(label: 'Log in', onPressed: () {}),
+                AppButton(
+                  label: 'Log in',
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => BottomNav()),
+                    );
+                  },
+                ),
                 SizedBox(height: 15),
                 Row(
                   children: [
@@ -105,17 +115,25 @@ class _LoginState extends State<Login> {
                   'assets/images/google_logo.png',
                 ),
                 SizedBox(height: 30),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      style: context.tt.titleSmall,
-                      children: [
-                        TextSpan(text: 'New to RIVALS? '),
-                        TextSpan(
-                          text: 'Create an account',
-                          style: TextStyle(color: AppTheme.accent),
-                        ),
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUp()),
+                    );
+                  },
+                  child: Center(
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.tt.titleSmall,
+                        children: [
+                          TextSpan(text: 'New to RIVALS? '),
+                          TextSpan(
+                            text: 'Create an account',
+                            style: TextStyle(color: AppTheme.accent),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

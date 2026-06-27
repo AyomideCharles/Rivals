@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/features/auth/login.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
 import 'package:rivals/shared/app_textfield.dart';
@@ -92,17 +93,25 @@ class _SignUpState extends State<SignUp> {
                   'assets/images/google_logo.png',
                 ),
                 SizedBox(height: 30),
-                Center(
-                  child: RichText(
-                    text: TextSpan(
-                      style: context.tt.titleSmall,
-                      children: [
-                        TextSpan(text: 'Already a member? '),
-                        TextSpan(
-                          text: 'Login',
-                          style: TextStyle(color: AppTheme.accent),
-                        ),
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                  child: Center(
+                    child: RichText(
+                      text: TextSpan(
+                        style: context.tt.titleSmall,
+                        children: [
+                          TextSpan(text: 'Already a member? '),
+                          TextSpan(
+                            text: 'Login',
+                            style: TextStyle(color: AppTheme.accent),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
