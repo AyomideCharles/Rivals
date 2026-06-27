@@ -8,8 +8,7 @@ class AppTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Widget? prefixIcon;
   final TextInputType keyboardType;
-  final bool? hasSuffixIcon;
-  final bool? hasPrefixIcon;
+  final String? Function(String?)? validator;
 
   const AppTextField({
     super.key,
@@ -20,13 +19,13 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
-    this.hasSuffixIcon = false,
-    this.hasPrefixIcon = false,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: validator,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,

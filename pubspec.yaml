@@ -39,6 +39,10 @@ dependencies:
   flutter_screenutil: ^5.9.3
   shared_preferences: ^2.5.5
   iconsax: ^0.0.8
+  firebase_core: ^4.11.0
+  firebase_auth: ^6.5.4
+  flutter_smart_dialog: ^5.1.0
+  cloud_firestore: ^6.6.0
 
 dev_dependencies:
   flutter_test:

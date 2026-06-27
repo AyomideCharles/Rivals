@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598434388953",
+    "project_id": "rivals-7015f",
+    "storage_bucket": "rivals-7015f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598434388953:android:69f5a1662bfe198c74d7c8",
+        "android_client_info": {
+          "package_name": "com.example.rivals"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7qm4Sf3gXJXrkf-UOrETh8Iv-8gIfYlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
