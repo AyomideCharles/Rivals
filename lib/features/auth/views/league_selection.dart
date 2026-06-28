@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/club_selection.dart';
+import 'package:rivals/features/auth/views/club_selection.dart';
 import 'package:rivals/shared/app_logo_text.dart';
 
 class LeagueSelection extends StatefulWidget {

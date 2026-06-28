@@ -32,7 +32,8 @@ class AppTheme {
   static const Color _lightText3 = Color(0xFFA1A1B0);
 
   // Dark surface palette
-  static const Color _darkBg = Color(0xFF0C0C0F);
+  // static const Color _darkBg = Color(0xFF0C0C0F);
+  static const Color _darkBg = Color(0xFF14161B);
   static const Color _darkSurface = Color(0xFF17171C);
   static const Color _darkCard = Color(0xFF1E1E25);
   static const Color _darkBorder = Color(0xFF2A2A35);

@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:rivals/bottom_navigation.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/features/auth/widgets/onboarding.dart';
+import 'package:rivals/features/auth/provider/auth_provider.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onDone;
@@ -36,10 +41,31 @@ class _SplashScreenState extends State<SplashScreen>
     _advance = Timer(const Duration(milliseconds: 3000), _finish);
   }
 
-  void _finish() {
+  void _finish() async {
     if (_left) return;
     _left = true;
-    widget.onDone();
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (!mounted) return;
+
+    if (user == null) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const Onboarding()),
+      );
+      return;
+    }
+
+    final auth = context.read<AuthProvider>();
+    await auth.refreshUserData();
+
+    if (!mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const BottomNav()),
+    );
   }
 
   @override

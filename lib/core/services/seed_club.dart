@@ -3,6 +3,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Arsenal',
     'shortName': 'ARS',
+    'nickname': 'The Gunners',
     'league': 'Premier League',
     'country': 'England',
     'color': '#EF0107',
@@ -12,6 +13,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Aston Villa',
     'shortName': 'AVL',
+    'nickname': 'The Villans',
     'league': 'Premier League',
     'country': 'England',
     'color': '#95BFE5',
@@ -21,6 +23,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Bournemouth',
     'shortName': 'BOU',
+    'nickname': 'The Cherries',
     'league': 'Premier League',
     'country': 'England',
     'color': '#DA291C',
@@ -30,6 +33,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Brentford',
     'shortName': 'BRE',
+    'nickname': 'The Bees',
     'league': 'Premier League',
     'country': 'England',
     'color': '#E30613',
@@ -39,6 +43,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Brighton',
     'shortName': 'BHA',
+    'nickname': 'The Seagulls',
     'league': 'Premier League',
     'country': 'England',
     'color': '#0057B8',
@@ -48,6 +53,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Chelsea',
     'shortName': 'CHE',
+    'nickname': 'The Blues',
     'league': 'Premier League',
     'country': 'England',
     'color': '#034694',
@@ -57,6 +63,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Crystal Palace',
     'shortName': 'CRY',
+    'nickname': 'The Eagles',
     'league': 'Premier League',
     'country': 'England',
     'color': '#1B458F',
@@ -66,6 +73,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Everton',
     'shortName': 'EVE',
+    'nickname': 'The Toffees',
     'league': 'Premier League',
     'country': 'England',
     'color': '#003399',
@@ -75,6 +83,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Fulham',
     'shortName': 'FUL',
+    'nickname': 'The Cottagers',
     'league': 'Premier League',
     'country': 'England',
     'color': '#CC0000',
@@ -84,6 +93,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Ipswich Town',
     'shortName': 'IPS',
+    'nickname': 'The Tractor Boys',
     'league': 'Premier League',
     'country': 'England',
     'color': '#0044A9',
@@ -92,6 +102,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Leicester City',
     'shortName': 'LEI',
+    'nickname': 'The Foxes',
     'league': 'Premier League',
     'country': 'England',
     'color': '#003090',
@@ -100,6 +111,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Liverpool',
     'shortName': 'LIV',
+    'nickname': 'The Reds',
     'league': 'Premier League',
     'country': 'England',
     'color': '#C8102E',
@@ -108,6 +120,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Man City',
     'shortName': 'MCI',
+    'nickname': 'The Citizens',
     'league': 'Premier League',
     'country': 'England',
     'color': '#6CABDD',
@@ -116,6 +129,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Man United',
     'shortName': 'MUN',
+    'nickname': 'The Red Devils',
     'league': 'Premier League',
     'country': 'England',
     'color': '#DA291C',
@@ -124,6 +138,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Newcastle',
     'shortName': 'NEW',
+    'nickname': 'The Magpies',
     'league': 'Premier League',
     'country': 'England',
     'color': '#241F20',
@@ -132,6 +147,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Nottm Forest',
     'shortName': 'NFO',
+    'nickname': 'The Tricky Trees',
     'league': 'Premier League',
     'country': 'England',
     'color': '#DD0000',
@@ -140,6 +156,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Southampton',
     'shortName': 'SOU',
+    'nickname': 'The Saints',
     'league': 'Premier League',
     'country': 'England',
     'color': '#D71920',
@@ -148,6 +165,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Tottenham',
     'shortName': 'TOT',
+    'nickname': 'Spurs',
     'league': 'Premier League',
     'country': 'England',
     'color': '#132257',
@@ -156,6 +174,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'West Ham',
     'shortName': 'WHU',
+    'nickname': 'The Hammers',
     'league': 'Premier League',
     'country': 'England',
     'color': '#7A263A',
@@ -164,6 +183,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Wolves',
     'shortName': 'WOL',
+    'nickname': 'The Wolves',
     'league': 'Premier League',
     'country': 'England',
     'color': '#FDB913',
@@ -174,6 +194,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Alaves',
     'shortName': 'ALA',
+    'nickname': 'El Glorioso',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#0070B8',
@@ -183,6 +204,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Athletic Bilbao',
     'shortName': 'ATH',
+    'nickname': 'Los Leones',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#EE2523',
@@ -192,6 +214,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Atletico Madrid',
     'shortName': 'ATM',
+    'nickname': 'Los Colchoneros',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#CB3524',
@@ -201,6 +224,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Barcelona',
     'shortName': 'BAR',
+    'nickname': 'Blaugrana',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#A50044',
@@ -210,6 +234,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Betis',
     'shortName': 'BET',
+    'nickname': 'Los Verdiblancos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#00954C',
@@ -218,6 +243,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Celta Vigo',
     'shortName': 'CEL',
+    'nickname': 'Os Celestes',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#8BBCE4',
@@ -227,6 +253,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Espanyol',
     'shortName': 'ESP',
+    'nickname': 'Los Pericos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#0070B8',
@@ -236,6 +263,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Getafe',
     'shortName': 'GET',
+    'nickname': 'Los Azulones',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#005999',
@@ -245,6 +273,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Girona',
     'shortName': 'GIR',
+    'nickname': 'Els Vermells',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#CD1421',
@@ -253,6 +282,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Las Palmas',
     'shortName': 'LPA',
+    'nickname': 'Los Amarillos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#FFD700',
@@ -261,6 +291,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Leganes',
     'shortName': 'LEG',
+    'nickname': 'El Pepinero',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#003DA5',
@@ -269,6 +300,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Mallorca',
     'shortName': 'MAL',
+    'nickname': 'Los Bermellones',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#C8102E',
@@ -277,6 +309,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Osasuna',
     'shortName': 'OSA',
+    'nickname': 'Los Rojillos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#D2112B',
@@ -285,6 +318,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Rayo Vallecano',
     'shortName': 'RAY',
+    'nickname': 'Los Franjirrojos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#CC0000',
@@ -293,6 +327,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Real Madrid',
     'shortName': 'RMA',
+    'nickname': 'Los Blancos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#FEBE10',
@@ -301,6 +336,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Real Sociedad',
     'shortName': 'RSO',
+    'nickname': 'La Real',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#0067A5',
@@ -309,6 +345,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Real Valladolid',
     'shortName': 'VLD',
+    'nickname': 'Los Pucelanos',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#6A0DAD',
@@ -317,6 +354,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Sevilla',
     'shortName': 'SEV',
+    'nickname': 'Los Nervionenses',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#D4011D',
@@ -325,6 +363,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Valencia',
     'shortName': 'VAL',
+    'nickname': 'Los Che',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#F5A000',
@@ -333,6 +372,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Villarreal',
     'shortName': 'VIL',
+    'nickname': 'The Yellow Submarine',
     'league': 'La Liga',
     'country': 'Spain',
     'color': '#FFDD00',
@@ -343,6 +383,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'AC Milan',
     'shortName': 'MIL',
+    'nickname': 'Rossoneri',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#FB090B',
@@ -352,6 +393,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Atalanta',
     'shortName': 'ATA',
+    'nickname': 'La Dea',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#1E4296',
@@ -361,6 +403,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Bologna',
     'shortName': 'BOL',
+    'nickname': 'Rossoblu',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#9B1932',
@@ -370,6 +413,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Cagliari',
     'shortName': 'CAG',
+    'nickname': 'Rossoblù',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#CC0000',
@@ -379,6 +423,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Como',
     'shortName': 'COM',
+    'nickname': 'Lariani',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#003DA5',
@@ -388,6 +433,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Empoli',
     'shortName': 'EMP',
+    'nickname': 'Gli Azzurri',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#0070B8',
@@ -396,6 +442,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Fiorentina',
     'shortName': 'FIO',
+    'nickname': 'La Viola',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#4B0082',
@@ -405,6 +452,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Genoa',
     'shortName': 'GEN',
+    'nickname': 'Grifone',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#CC0000',
@@ -414,6 +462,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Hellas Verona',
     'shortName': 'HEL',
+    'nickname': 'Gialloblu',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#FFD700',
@@ -422,6 +471,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Inter Milan',
     'shortName': 'INT',
+    'nickname': 'Nerazzurri',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#010E80',
@@ -431,6 +481,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Juventus',
     'shortName': 'JUV',
+    'nickname': 'The Old Lady',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#000000',
@@ -440,6 +491,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Lazio',
     'shortName': 'LAZ',
+    'nickname': 'Biancocelesti',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#87D8F7',
@@ -448,6 +500,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Lecce',
     'shortName': 'LEC',
+    'nickname': 'Giallorossi',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#FFD700',
@@ -456,6 +509,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Monza',
     'shortName': 'MOZ',
+    'nickname': 'Biancorossi',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#CC0000',
@@ -464,6 +518,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Napoli',
     'shortName': 'NAP',
+    'nickname': 'Gli Azzurri',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#12A0C3',
@@ -472,6 +527,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Parma',
     'shortName': 'PAR',
+    'nickname': 'Crociati',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#FFD700',
@@ -480,6 +536,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'AS Roma',
     'shortName': 'ROM',
+    'nickname': 'I Giallorossi',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#8E1F2F',
@@ -488,6 +545,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Torino',
     'shortName': 'TOR',
+    'nickname': 'Il Toro',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#731012',
@@ -496,6 +554,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Udinese',
     'shortName': 'UDI',
+    'nickname': 'Bianconeri',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#000000',
@@ -504,6 +563,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Venezia',
     'shortName': 'VEN',
+    'nickname': 'Arancioneroverdi',
     'league': 'Serie A',
     'country': 'Italy',
     'color': '#000000',
@@ -514,6 +574,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Augsburg',
     'shortName': 'AUG',
+    'nickname': 'Die Fuggerstädter',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#BA3733',
@@ -523,6 +584,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Bayer Leverkusen',
     'shortName': 'B04',
+    'nickname': 'Die Werkself',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E32221',
@@ -532,6 +594,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Bayern Munich',
     'shortName': 'BAY',
+    'nickname': 'Die Roten',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#DC052D',
@@ -541,6 +604,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Bochum',
     'shortName': 'BOC',
+    'nickname': 'Die Unabsteigbaren',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#005CA9',
@@ -549,6 +613,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Borussia Dortmund',
     'shortName': 'BVB',
+    'nickname': 'Die Schwarzgelben',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#FDE100',
@@ -558,6 +623,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': "Borussia M'gladbach",
     'shortName': 'BMG',
+    'nickname': 'Die Fohlen',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#000000',
@@ -567,6 +633,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Eintracht Frankfurt',
     'shortName': 'SGE',
+    'nickname': 'Die Adler',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E1000F',
@@ -576,6 +643,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Freiburg',
     'shortName': 'SCF',
+    'nickname': 'Die Breisgauer',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E8001C',
@@ -585,6 +653,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Hamburg',
     'shortName': 'HSV',
+    'nickname': 'Die Rothosen',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#003FA3',
@@ -594,6 +663,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Hoffenheim',
     'shortName': 'TSG',
+    'nickname': 'Die Kraichgauer',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#1961AC',
@@ -603,6 +673,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Holstein Kiel',
     'shortName': 'KIE',
+    'nickname': 'Die Störche',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#C8102E',
@@ -611,6 +682,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Mainz',
     'shortName': 'MAI',
+    'nickname': 'Die Nullfünfer',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#CC0000',
@@ -619,6 +691,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'RB Leipzig',
     'shortName': 'RBL',
+    'nickname': 'Die Roten Bullen',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#DD0741',
@@ -627,6 +700,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'St. Pauli',
     'shortName': 'STP',
+    'nickname': 'Die Kiezkicker',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#8B3A3A',
@@ -635,6 +709,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Stuttgart',
     'shortName': 'VFB',
+    'nickname': 'Die Schwaben',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#E32219',
@@ -643,6 +718,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Union Berlin',
     'shortName': 'UNB',
+    'nickname': 'Die Eisernen',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#CC0000',
@@ -651,6 +727,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Werder Bremen',
     'shortName': 'WER',
+    'nickname': 'Die Grün-Weißen',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#1D9A4E',
@@ -659,6 +736,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Wolfsburg',
     'shortName': 'WOB',
+    'nickname': 'Die Wölfe',
     'league': 'Bundesliga',
     'country': 'Germany',
     'color': '#65B32E',
@@ -669,6 +747,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Angers',
     'shortName': 'ANG',
+    'nickname': 'Le SCO',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#000000',
@@ -678,6 +757,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Auxerre',
     'shortName': 'AUX',
+    'nickname': 'Les Auxerrois',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#003DA5',
@@ -687,6 +767,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Brest',
     'shortName': 'BRE',
+    'nickname': 'Les Pirates',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#CC0000',
@@ -696,6 +777,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Le Havre',
     'shortName': 'HAV',
+    'nickname': 'Les Ciel et Marine',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#003DA5',
@@ -705,6 +787,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Lens',
     'shortName': 'LEN',
+    'nickname': 'Sang et Or',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#FFD700',
@@ -714,6 +797,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Lille',
     'shortName': 'LIL',
+    'nickname': 'Les Dogues',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#EE1C25',
@@ -723,6 +807,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Lyon',
     'shortName': 'OL',
+    'nickname': 'Les Gones',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#0055A4',
@@ -732,6 +817,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Marseille',
     'shortName': 'OM',
+    'nickname': 'Les Phocéens',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#2FAEE0',
@@ -741,6 +827,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Monaco',
     'shortName': 'MON',
+    'nickname': 'Les Rouges et Blancs',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#D4011D',
@@ -749,6 +836,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Montpellier',
     'shortName': 'MTP',
+    'nickname': 'La Paillade',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#F37020',
@@ -757,6 +845,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Nantes',
     'shortName': 'NAN',
+    'nickname': 'Les Canaris',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#FFD700',
@@ -765,6 +854,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Nice',
     'shortName': 'NIC',
+    'nickname': 'Les Aiglons',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#000000',
@@ -773,6 +863,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'PSG',
     'shortName': 'PSG',
+    'nickname': 'Les Parisiens',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#004170',
@@ -781,6 +872,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Reims',
     'shortName': 'REI',
+    'nickname': 'Les Rouges et Blancs',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#CC0000',
@@ -789,6 +881,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Rennes',
     'shortName': 'REN',
+    'nickname': 'Les Rouge et Noir',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#E5001B',
@@ -797,6 +890,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Saint-Etienne',
     'shortName': 'STE',
+    'nickname': 'Les Verts',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#1D9A4E',
@@ -805,6 +899,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Strasbourg',
     'shortName': 'RCS',
+    'nickname': 'Les Alsaciens',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#0055A4',
@@ -813,6 +908,7 @@ const List<Map<String, dynamic>> clubs = [
   {
     'name': 'Toulouse',
     'shortName': 'TOU',
+    'nickname': 'Les Violets',
     'league': 'Ligue 1',
     'country': 'France',
     'color': '#6A0DAD',

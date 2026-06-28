@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/club/my_club.dart';
+import 'package:rivals/features/club/views/my_club.dart';
 import 'package:rivals/features/clips/clips.dart';
 import 'package:rivals/features/profile/profile.dart';
 import 'package:rivals/features/banter/homepage.dart';

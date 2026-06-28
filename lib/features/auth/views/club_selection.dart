@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/bottom_navigation.dart';
 import 'package:rivals/core/services/seed_club.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
+import 'package:rivals/features/auth/provider/auth_provider.dart';
 
 class ClubSelection extends StatefulWidget {
   final String title;
@@ -70,9 +72,22 @@ class _ClubSelectionState extends State<ClubSelection>
       await FirebaseFirestore.instance.collection('users').doc(uid).update({
         'clubId': selectedClub!['shortName'],
         'clubName': selectedClub!['name'],
+        'clubNickname': selectedClub!['nickname'],
         'clubColor': selectedClub!['color'],
         'clubLeague': widget.title,
       });
+      // this stores club members on firestore
+      await FirebaseFirestore.instance
+          .collection('clubStats')
+          .doc(selectedClub!['shortName'])
+          .set({
+            'clubId': selectedClub!['shortName'],
+            'clubName': selectedClub!['name'],
+            'members': FieldValue.increment(1),
+          }, SetOptions(merge: true));
+      if (mounted) {
+        await context.read<AuthProvider>().refreshUserData();
+      }
 
       if (mounted) {
         Navigator.pushAndRemoveUntil(
@@ -82,7 +97,7 @@ class _ClubSelectionState extends State<ClubSelection>
         );
       }
     } catch (e) {
-      SmartDialog.showToast('Something went wrong. Try again.');
+      SmartDialog.showToast(e.toString());
     } finally {
       SmartDialog.dismiss();
     }

@@ -8,15 +8,16 @@ class AuthProvider extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   User? _user;
+  Map<String, dynamic>? _userData;
 
   User? get user => _user;
-  Map<String, dynamic>? _userData;
   Map<String, dynamic>? get userData => _userData;
 
   String get displayName => _userData?['displayName'] ?? '';
   String get email => _userData?['email'] ?? '';
   String get clubId => _userData?['clubId'] ?? '';
   String get clubName => _userData?['clubName'] ?? '';
+  // String get clubNickname => _userData?['clubNickname'] ?? '';
   String get clubColor => _userData?['clubColor'] ?? '';
   String get clubLeague => _userData?['clubLeague'] ?? '';
   bool get hasClub => _userData?['clubId'] != null;
@@ -24,9 +25,9 @@ class AuthProvider extends ChangeNotifier {
   AuthProvider() {
     auth.authStateChanges().listen((user) async {
       _user = user;
-      if (user != null) {
+      if (user != null && _userData == null) {
         await _loadUserData(user.uid);
-      } else {
+      } else if (user == null) {
         _userData = null;
       }
       notifyListeners();
@@ -52,8 +53,9 @@ class AuthProvider extends ChangeNotifier {
         password: password,
       );
 
-      //  Save user other information to firestore
       await userInfo.user!.updateDisplayName(displayName.trim());
+      await userInfo.user!.reload();
+      _user = auth.currentUser;
 
       final data = {
         'uid': userInfo.user!.uid,
@@ -61,6 +63,7 @@ class AuthProvider extends ChangeNotifier {
         'email': email.trim(),
         'clubId': null,
         'clubName': null,
+        'clubNickname': null,
         'clubColor': null,
         'clubLeague': null,
         'createdAt': FieldValue.serverTimestamp(),
@@ -77,16 +80,26 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> signIn(String email, String password) async {
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      final cred = await auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password,
+      );
+      await _loadUserData(cred.user!.uid);
       return true;
     } on FirebaseAuthException catch (e) {
       SmartDialog.showToast(e.code);
-      notifyListeners();
       return false;
     }
   }
 
+  Future<void> refreshUserData() async {
+    if (_user == null) return;
+    await _loadUserData(_user!.uid);
+  }
+
   Future<void> signOut() async {
+    _userData = null;
+    notifyListeners();
     await auth.signOut();
   }
 }

@@ -6,9 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/onboarding.dart';
+import 'package:rivals/features/auth/widgets/onboarding.dart';
 import 'package:rivals/features/auth/provider/auth_provider.dart';
-import 'package:rivals/features/auth/splash_screen.dart';
+import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/firebase_options.dart';
 
 void main() async {
@@ -39,24 +39,25 @@ class MyApp extends StatelessWidget {
           title: 'Rivals',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light.copyWith(
-            textTheme: GoogleFonts.hankenGroteskTextTheme(
+            textTheme: GoogleFonts.spaceGroteskTextTheme(
               AppTheme.light.textTheme,
             ),
           ),
           darkTheme: AppTheme.dark.copyWith(
-            textTheme: GoogleFonts.hankenGroteskTextTheme(
+            textTheme: GoogleFonts.spaceGroteskTextTheme(
               AppTheme.dark.textTheme,
             ),
           ),
           themeMode: context.watch<ThemeProvider>().mode,
           builder: FlutterSmartDialog.init(),
-          home: Builder(
-            builder: (context) => SplashScreen(
-              onDone: () => Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => const Onboarding()),
-              ),
-            ),
-          ),
+          home: SplashScreen(onDone: () {}),
+          // home: Builder(
+          //   builder: (context) => SplashScreen(
+          //     onDone: () => Navigator.of(context).pushReplacement(
+          //       MaterialPageRoute(builder: (_) => const Onboarding()),
+          //     ),
+          //   ),
+          // ),
         );
       },
     );

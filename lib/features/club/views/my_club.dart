@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
+import 'package:rivals/core/models/club_model.dart';
 import 'package:rivals/core/services/seed_club.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/features/club/views/club_details.dart';
 import 'package:rivals/shared/app_bar.dart';
 
 class MyClub extends StatefulWidget {
@@ -18,10 +21,26 @@ class _MyClubState extends State<MyClub> {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
 
+    if (auth.userData == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    // ── Wait for club to be selected ──────────────────────────
+    if (auth.clubId.isEmpty) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     // this is used to filter out current user club and display for others
     final otherClubs = clubs
         .where((c) => c['shortName'] != auth.clubId)
         .toList();
+
+    final myClub = clubs.firstWhere(
+      (c) => c['shortName'] == auth.clubId,
+      orElse: () => {},
+    );
+    final hasBadge =
+        myClub['badgeUrl'] != null && myClub['badgeUrl'].toString().isNotEmpty;
 
     return Scaffold(
       appBar: CustomAppBar(
@@ -60,10 +79,67 @@ class _MyClubState extends State<MyClub> {
           ),
           SizedBox(height: 10),
           ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ClubDetails(clubModel: ClubModel.fromMap(myClub)),
+                ),
+              );
+            },
             contentPadding: const EdgeInsets.only(left: 20, right: 20),
-            leading: CircleAvatar(radius: 30),
-            title: Text(auth.clubName, style: context.tt.titleMedium),
-            subtitle: Text('data'),
+            leading: hasBadge
+                ? Image.network(
+                    myClub['badgeUrl'],
+                    width: 60,
+                    height: 60,
+                    fit: BoxFit.contain,
+                    errorBuilder: (_, __, ___) => CircleAvatar(
+                      radius: 30,
+                      child: Text(
+                        auth.clubId,
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  )
+                : CircleAvatar(
+                    radius: 30,
+                    child: Text(
+                      auth.clubId,
+                      style: TextStyle(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+
+            title: Row(
+              children: [
+                Text(auth.clubName, style: context.tt.titleMedium),
+                SizedBox(width: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: context.cs.outline, width: 1),
+                    color: context.cs.surface,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text('Your club', style: context.tt.labelMedium),
+                ),
+              ],
+            ),
+            subtitle: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('clubStats')
+                  .doc(auth.clubId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                final members = snapshot.data?.get('members') ?? 0;
+                return Text(
+                  // '$members members  ·  ${auth.clubNickname}',
+                  "$members members  ·  ${myClub['nickname'] ?? ''}",
+                  style: context.tt.bodySmall,
+                );
+              },
+            ),
             trailing: Icon(Icons.navigate_next),
           ),
           Divider(height: 16),
@@ -83,6 +159,22 @@ class _MyClubState extends State<MyClub> {
                     club['badgeUrl'].toString().isNotEmpty;
 
                 return ListTile(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         ClubDetails(clubModel: ClubModel.fromMap(club)),
+                    //   ),
+                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ClubHubPage(club: ClubModel.fromMap(club)),
+                      ),
+                    );
+                  },
                   contentPadding: const EdgeInsets.only(
                     left: 20,
                     bottom: 20,
@@ -117,7 +209,23 @@ class _MyClubState extends State<MyClub> {
                           ),
                         ),
                   title: Text(club["name"] ?? ''),
-                  subtitle: Text('data'),
+                  // subtitle: Text('data'),
+                  // In the ListTile subtitle for other clubs
+                  subtitle: StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('clubStats')
+                        .doc(club['shortName'])
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      final members = snapshot.data?.exists == true
+                          ? snapshot.data!.get('members') ?? 0
+                          : 0;
+                      return Text(
+                        '$members members · ${club['nickname'] ?? ''}',
+                        style: context.tt.bodySmall,
+                      );
+                    },
+                  ),
                   trailing: Icon(Icons.navigate_next),
                 );
               },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/splash_screen.dart';
+import 'package:rivals/features/auth/widgets/splash_screen.dart';
 
 class RivalsLogo extends StatelessWidget {
   final double size;
