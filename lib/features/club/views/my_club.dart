@@ -134,7 +134,6 @@ class _MyClubState extends State<MyClub> {
               builder: (context, snapshot) {
                 final members = snapshot.data?.get('members') ?? 0;
                 return Text(
-                  // '$members members  ·  ${auth.clubNickname}',
                   "$members members  ·  ${myClub['nickname'] ?? ''}",
                   style: context.tt.bodySmall,
                 );

@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rivals/core/models/club_model.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
+import 'package:rivals/features/club/widgets/club_news_tab.dart';
 import 'package:rivals/features/club/widgets/sliver_tab.dart';
 import 'package:rivals/shared/app_button.dart';
 
@@ -74,12 +76,26 @@ class _ClubDetailsState extends State<ClubDetails> {
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 8),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      clubStat(widget.clubModel.members.toString(), 'Members'),
-                      clubStat('4.2K', 'Posts today'),
-                      clubStat('#3', 'Banter rank'),
-                    ],
+                  StreamBuilder<DocumentSnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('clubStats')
+                        .doc(widget.clubModel.shortName)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      final members = snapshot.data?.exists == true
+                          ? snapshot.data!.get('members') ?? 0
+                          : 0;
+                      return Row(
+                        children: [
+                          clubStat(
+                            members.toString(),
+                            'Members',
+                          ), // 👈 live from Firestore
+                          clubStat('4.2K', 'Posts today'),
+                          clubStat('#3', 'Banter rank'),
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   AppButton(label: 'Joined', onPressed: () {}),
@@ -95,16 +111,8 @@ class _ClubDetailsState extends State<ClubDetails> {
               onTap: (i) => setState(() => selectedTab = i),
             ),
           ),
-
           if (selectedTab == 0)
-            SliverList(
-              delegate: SliverChildBuilderDelegate((context, i) {
-                return Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Text('data'),
-                );
-              }),
-            )
+            SliverToBoxAdapter(child: ClubNewsTab(club: widget.clubModel))
           else
             SliverToBoxAdapter(
               child: Padding(
@@ -118,6 +126,24 @@ class _ClubDetailsState extends State<ClubDetails> {
               ),
             ),
 
+          // if (selectedTab == 0)
+          //   SliverList(
+          //     delegate: SliverChildBuilderDelegate((context, i) {
+          //       return ClubNewsTab(club: widget.clubModel);
+          //     }),
+          //   )
+          // else
+          //   SliverToBoxAdapter(
+          //     child: Padding(
+          //       padding: const EdgeInsets.all(48),
+          //       child: Center(
+          //         child: Text(
+          //           '${clubTabs[selectedTab]} coming soon',
+          //           style: context.tt.labelMedium,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),
