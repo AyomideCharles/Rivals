@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rivals/core/services/club_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/views/club_selection.dart';
 import 'package:rivals/shared/app_logo_text.dart';
@@ -51,48 +52,10 @@ class _LeagueSelectionState extends State<LeagueSelection>
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> leagues = [
-      {
-        'name': 'Premier League',
-        'url':
-            'https://r2.thesportsdb.com/images/media/league/badge/gasy9d1737743125.png',
-        'country': "England",
-        "numberOfClubs": "20 clubs",
-      },
-      {
-        'name': 'La Liga',
-        'url':
-            'https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png',
-        'country': "Spain",
-        "numberOfClubs": "20 clubs",
-      },
-      {
-        'name': 'Serie A',
-        'url':
-            'https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png',
-        'country': "Italy",
-        "numberOfClubs": "20 clubs",
-      },
-      {
-        'name': 'Bundesliga',
-        'url':
-            'https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png',
-        'country': "Germany",
-        "numberOfClubs": "18 clubs",
-      },
-      {
-        'name': 'Ligue 1',
-        'url':
-            'https://r2.thesportsdb.com/images/media/league/badge/9f7z9d1742983155.png',
-        'country': "France",
-        "numberOfClubs": "18 clubs",
-      },
-    ];
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -126,84 +89,97 @@ class _LeagueSelectionState extends State<LeagueSelection>
               ),
               SizedBox(height: 30),
               Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.zero,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 20,
-                    crossAxisSpacing: 20,
-                    childAspectRatio: 1.2,
-                  ),
-                  itemCount: leagues.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final league = leagues[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                ClubSelection(title: league["name"]!),
+                child: StreamBuilder<List<Map<String, dynamic>>>(
+                  stream: ClubService.getLeagues(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    final leagues = snapshot.data!;
+
+                    return GridView.builder(
+                      padding: EdgeInsets.zero,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20,
+                            childAspectRatio: 1.2,
+                          ),
+                      itemCount: leagues.length,
+                      itemBuilder: (context, index) {
+                        final league = leagues[index];
+                        return GestureDetector(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ClubSelection(title: league['name']),
+                            ),
+                          ),
+                          child: FadeTransition(
+                            opacity: _fadeAnim(index),
+                            child: SlideTransition(
+                              position: _slideAnim(index),
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                decoration: BoxDecoration(
+                                  color: context.cs.surface,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: context.cs.outline),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        ClipRRect(
+                                          child: Image.network(
+                                            league['badgeUrl'] ?? '',
+                                            width: 60,
+                                            height: 60,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (_, __, ___) =>
+                                                const Icon(
+                                                  Icons.sports_soccer,
+                                                  size: 40,
+                                                ),
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color: context.cs.surface,
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
+                                            border: Border.all(
+                                              color: context.cs.outline,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            '${league['numberOfClubs']} clubs',
+                                            style: context.tt.labelMedium,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      league['name'] ?? '',
+                                      style: context.tt.titleMedium,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(league['country'] ?? ''),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         );
                       },
-
-                      child: FadeTransition(
-                        opacity: _fadeAnim(index),
-                        child: SlideTransition(
-                          position: _slideAnim(index),
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: context.cs.surface,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: context.cs.outline),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ClipRRect(
-                                      clipBehavior: Clip.hardEdge,
-                                      child: Image.network(
-                                        league['url']!,
-                                        width: 60,
-                                        height: 60,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: context.cs.surface,
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: context.cs.outline,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        league["numberOfClubs"]!,
-                                        style: context.tt.labelMedium,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  league["name"]!,
-                                  style: context.tt.titleMedium,
-                                ),
-                                SizedBox(height: 10),
-                                Text(league["country"]!),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
                     );
                   },
                 ),

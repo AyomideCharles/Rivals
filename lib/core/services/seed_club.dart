@@ -914,4 +914,221 @@ const List<Map<String, dynamic>> clubs = [
     'color': '#6A0DAD',
     'badgeUrl': '',
   },
+  // ── Primeira Liga (18 clubs) ───────────────────────────
+  {
+    'name': 'Alverca',
+    'shortName': 'ALV',
+    'nickname': 'Os Alverquenses',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/6ljryf1691990098.png',
+  },
+  {
+    'name': 'Arouca',
+    'shortName': 'ARO',
+    'nickname': 'Os Arouquenses',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#FEF405',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/vgbzjq1628853833.png',
+  },
+  {
+    'name': 'AVS',
+    'shortName': 'AVS',
+    'nickname': 'Os Vilacondenses',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#CC0000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/xp8oqb1688676544.png',
+  },
+  {
+    'name': 'Benfica',
+    'shortName': 'BEN',
+    'nickname': 'As Águias',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#E83030',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/hj4kyc1781152436.png',
+  },
+  {
+    'name': 'Braga',
+    'shortName': 'BRG',
+    'nickname': 'Os Arsenalistas',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#C82B20',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/8g4aod1678717261.png',
+  },
+  {
+    'name': 'Casa Pia',
+    'shortName': 'CPA',
+    'nickname': 'Os Gansos',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#000000',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/d8ugsc1678717133.png',
+  },
+  {
+    'name': 'Estoril Praia',
+    'shortName': 'EST',
+    'nickname': 'Os Canarinhos',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#4C4F94',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/lq9h8m1628854051.png',
+  },
+  {
+    'name': 'Estrela Amadora',
+    'shortName': 'EAM',
+    'nickname': 'Os Tricolores',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#BE3C2C',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/2tx5621626095555.png',
+  },
+  {
+    'name': 'Famalicão',
+    'shortName': 'FAM',
+    'nickname': 'Os Famalicenses',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#0B3D6B',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/a3f4er1563653256.png',
+  },
+  {
+    'name': 'Gil Vicente',
+    'shortName': 'GIL',
+    'nickname': 'Os Galos',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#D52929',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/team/badge/88bsg41626201503.png',
+  },
+  {
+    'name': 'Porto',
+    'shortName': 'POR',
+    'nickname': 'Os Dragões',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#003DA5',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Sporting CP',
+    'shortName': 'SCP',
+    'nickname': 'Os Leões',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#006600',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Guimarães',
+    'shortName': 'GIM',
+    'nickname': 'Os Conquistadores',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#000000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Moreirense',
+    'shortName': 'MOR',
+    'nickname': 'Os Cónegos',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#006600',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Rio Ave',
+    'shortName': 'RIO',
+    'nickname': 'Os Vilacondenses',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#006600',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Boavista',
+    'shortName': 'BOA',
+    'nickname': 'Os Axadrezados',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#000000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Santa Clara',
+    'shortName': 'SCL',
+    'nickname': 'Os Açorianos',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#CC0000',
+    'badgeUrl': '',
+  },
+  {
+    'name': 'Nacional',
+    'shortName': 'NAC',
+    'nickname': 'Os Alvinegros',
+    'league': 'Primeira Liga',
+    'country': 'Portugal',
+    'color': '#000000',
+    'badgeUrl': '',
+  },
+];
+
+const List<Map<String, dynamic>> leagues = [
+  {
+    'name': 'Premier League',
+    'country': 'England',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/league/badge/gasy9d1737743125.png',
+    'numberOfClubs': 20,
+  },
+  {
+    'name': 'La Liga',
+    'country': 'Spain',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png',
+    'numberOfClubs': 20,
+  },
+  {
+    'name': 'Serie A',
+    'country': 'Italy',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png',
+    'numberOfClubs': 20,
+  },
+  {
+    'name': 'Bundesliga',
+    'country': 'Germany',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png',
+    'numberOfClubs': 18,
+  },
+  {
+    'name': 'Ligue 1',
+    'country': 'France',
+    'badgeUrl':
+        'https://r2.thesportsdb.com/images/media/league/badge/9f7z9d1742983155.png',
+    'numberOfClubs': 18,
+  },
+  {
+    'name': 'Primeira Liga',
+    'country': 'Portugal',
+    'badgeUrl': '',
+    'numberOfClubs': 18,
+  },
 ];
