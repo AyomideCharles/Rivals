@@ -4,14 +4,20 @@ import 'package:rivals/core/theme/app_theme.dart';
 class AppButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
-  const AppButton({super.key, required this.label, required this.onPressed});
+  final double? width;
+  const AppButton({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: double.infinity,
+        width: width ?? double.infinity,
         height: 48,
         decoration: BoxDecoration(
           border: Border.all(color: context.cs.outline, width: 1),

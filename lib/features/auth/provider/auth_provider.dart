@@ -17,7 +17,7 @@ class AuthProvider extends ChangeNotifier {
   String get email => _userData?['email'] ?? '';
   String get clubId => _userData?['clubId'] ?? '';
   String get clubName => _userData?['clubName'] ?? '';
-  // String get clubNickname => _userData?['clubNickname'] ?? '';
+  String get clubNickname => _userData?['clubNickname'] ?? '';
   String get clubColor => _userData?['clubColor'] ?? '';
   String get clubLeague => _userData?['clubLeague'] ?? '';
   bool get hasClub => _userData?['clubId'] != null;

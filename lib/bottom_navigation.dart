@@ -3,6 +3,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/club/views/my_club.dart';
 import 'package:rivals/features/clips/clips.dart';
+import 'package:rivals/features/post/post.dart';
 import 'package:rivals/features/profile/profile.dart';
 import 'package:rivals/features/banter/homepage.dart';
 
@@ -35,7 +36,38 @@ class _BottomNavState extends State<BottomNav> {
       // body: pages[currentIndex],
       body: IndexedStack(index: currentIndex, children: pages),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => const Post()));
+          // showModalBottomSheet(
+          //   context: context,
+          //   builder: (_) => Padding(
+          //     padding: const EdgeInsets.all(24),
+          //     child: Column(
+          //       mainAxisSize: MainAxisSize.min,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Text('Post options', style: context.tt.headlineSmall),
+          //         const SizedBox(height: 16),
+          //         ListTile(
+          //           leading: const Icon(Icons.share),
+          //           title: const Text('Share post'),
+          //           onTap: () {},
+          //         ),
+          //         ListTile(
+          //           leading: Icon(Icons.flag, color: context.cs.error),
+          //           title: Text(
+          //             'Report post',
+          //             style: TextStyle(color: context.cs.error),
+          //           ),
+          //           onTap: () {},
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // );
+        },
         backgroundColor: AppTheme.accent,
         child: Icon(Iconsax.add, color: Colors.black),
       ),
@@ -59,71 +91,3 @@ class _BottomNavState extends State<BottomNav> {
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:iconsax/iconsax.dart';
-// import 'package:rivals/core/theme/app_theme.dart';
-// import 'package:rivals/features/club/my_club.dart';
-// import 'package:rivals/features/explore/explore.dart';
-// import 'package:rivals/features/profile/profile.dart';
-// import 'package:rivals/features/banter/homepage.dart';
-
-// class BottomNav extends StatefulWidget {
-//   const BottomNav({super.key});
-
-//   @override
-//   State<BottomNav> createState() => _BottomNavState();
-// }
-
-// class _BottomNavState extends State<BottomNav> {
-//   int currentIndex = 0;
-
-//   late final List<Widget> pages = [
-//     const Homepage(),
-//     const MyClub(),
-//     const Explore(),
-//     const Profile(),
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: IndexedStack(index: currentIndex, children: pages),
-
-//       // ── Centered FAB ────────────────────────────────────────────────────
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: () {},
-//         backgroundColor: AppTheme.accent,
-//         elevation: 0,
-//         child: const Icon(Iconsax.add, color: Colors.black),
-//       ),
-//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-//       // ── Bottom nav ──────────────────────────────────────────────────────
-//       bottomNavigationBar: BottomAppBar(
-//         color: Theme.of(context).scaffoldBackgroundColor,
-//         elevation: 0,
-//         // notchMargin: 8,
-//         // shape: const CircularNotchedRectangle(),
-//         child: BottomNavigationBar(
-//           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-//           elevation: 0,
-//           currentIndex: currentIndex,
-//           onTap: (index) => setState(() => currentIndex = index),
-//           items: const [
-//             BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Feed'),
-//             BottomNavigationBarItem(
-//               icon: Icon(Iconsax.shield),
-//               label: 'My Club',
-//             ),
-//             BottomNavigationBarItem(
-//               icon: Icon(Iconsax.search_favorite1),
-//               label: 'Explore',
-//             ),
-//             BottomNavigationBarItem(icon: Icon(Iconsax.user), label: 'Profile'),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
