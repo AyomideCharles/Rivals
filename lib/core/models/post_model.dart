@@ -8,6 +8,8 @@ class PostModel {
   final String clubName;
   final String clubColor;
   final String content;
+  final String mediaUrl;
+  final bool isVideo;
   final int likes;
   final int comments;
   final DateTime createdAt;
@@ -20,10 +22,14 @@ class PostModel {
     required this.clubName,
     required this.clubColor,
     required this.content,
+    this.mediaUrl = '',
+    this.isVideo = false,
     this.likes = 0,
     this.comments = 0,
     required this.createdAt,
   });
+
+  bool get hasMedia => mediaUrl.isNotEmpty;
 
   factory PostModel.fromDoc(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -35,6 +41,8 @@ class PostModel {
       clubName: data['clubName'] ?? '',
       clubColor: data['clubColor'] ?? '',
       content: data['content'] ?? '',
+      mediaUrl: data['mediaUrl'] ?? '',
+      isVideo: data['isVideo'] ?? false,
       likes: data['likes'] ?? 0,
       comments: data['comments'] ?? 0,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
@@ -48,6 +56,8 @@ class PostModel {
     'clubName': clubName,
     'clubColor': clubColor,
     'content': content,
+    'mediaUrl': mediaUrl,
+    'isVideo': isVideo,
     'likes': likes,
     'comments': comments,
     'createdAt': FieldValue.serverTimestamp(),

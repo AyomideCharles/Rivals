@@ -16,40 +16,30 @@ class Homepage extends StatelessWidget {
         showLogo: true,
         actions: [
           Container(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               border: Border.all(color: context.cs.outline, width: 1),
               color: context.cs.surface,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Iconsax.notification),
+            child: const Icon(Iconsax.notification),
           ),
-          SizedBox(width: 15),
+          const SizedBox(width: 15),
           Container(
-            margin: EdgeInsets.only(right: 20),
-            padding: EdgeInsets.all(8),
+            margin: const EdgeInsets.only(right: 20),
+            padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               border: Border.all(color: context.cs.outline, width: 1),
               color: context.cs.surface,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(Iconsax.search_favorite_1),
+            child: const Icon(Iconsax.search_favorite_1),
           ),
         ],
       ),
       body: Column(
         children: [
-          Divider(height: 16),
-          Container(
-            margin: EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              border: Border.all(color: context.cs.outline, width: 1),
-              color: context.cs.surface,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            width: double.infinity,
-            height: 200,
-          ),
+          const Divider(height: 16),
           Expanded(
             child: StreamBuilder<List<PostModel>>(
               stream: PostService.getAllPosts(),
@@ -63,16 +53,101 @@ class Homepage extends StatelessWidget {
                     child: Text('No posts yet. Be the first!'),
                   );
                 }
-                return ListView.builder(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  shrinkWrap: true,
+                return ListView.separated(
+                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  padding: EdgeInsets.zero,
                   itemCount: posts.length,
                   itemBuilder: (context, index) {
                     final post = posts[index];
-                    return ListTile(
-                      leading: CircleAvatar(),
-                      title: Text('@${post.displayName}'),
-                      subtitle: Text(post.content),
+                    return Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const CircleAvatar(radius: 18),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '@${post.displayName}',
+                                  style: context.tt.titleMedium,
+                                ),
+                                Text(
+                                  post.clubName,
+                                  style: context.tt.bodySmall,
+                                ),
+                                const SizedBox(height: 8),
+                                if (post.content.isNotEmpty)
+                                  Text(
+                                    post.content,
+                                    style: context.tt.titleMedium,
+                                  ),
+
+                                // media
+                                if (post.hasMedia) ...[
+                                  const SizedBox(height: 10),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: post.isVideo
+                                        ? _VideoThumbnail(url: post.mediaUrl)
+                                        : Image.network(
+                                            post.mediaUrl,
+                                            width: double.infinity,
+                                            height: 200,
+                                            fit: BoxFit.cover,
+                                            loadingBuilder:
+                                                (
+                                                  _,
+                                                  child,
+                                                  progress,
+                                                ) => progress == null
+                                                ? child
+                                                : const SizedBox(
+                                                    height: 200,
+                                                    child: Center(
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                  ),
+                                            errorBuilder: (_, __, ___) =>
+                                                const SizedBox(
+                                                  height: 200,
+                                                  child: Center(
+                                                    child: Icon(
+                                                      Icons.broken_image,
+                                                    ),
+                                                  ),
+                                                ),
+                                          ),
+                                  ),
+                                ],
+
+                                const SizedBox(height: 10),
+                                // actions
+                                Row(
+                                  children: [
+                                    Icon(Iconsax.heart, size: 16),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '${post.likes}',
+                                      style: context.tt.bodySmall,
+                                    ),
+                                    const SizedBox(width: 16),
+                                    Icon(Iconsax.message, size: 16),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      '${post.comments}',
+                                      style: context.tt.bodySmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );
@@ -80,6 +155,27 @@ class Homepage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// simple video placeholder — tap to play
+class _VideoThumbnail extends StatelessWidget {
+  final String url;
+  const _VideoThumbnail({required this.url});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: 200,
+        width: double.infinity,
+        color: Colors.black,
+        child: const Center(
+          child: Icon(Icons.play_circle_outline, color: Colors.white, size: 56),
+        ),
       ),
     );
   }
