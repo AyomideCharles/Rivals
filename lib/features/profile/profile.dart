@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
-import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
-import 'package:rivals/core/services/post_service.dart';
+import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
 import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/features/profile/widgets/clips_tab.dart';
+import 'package:rivals/features/profile/widgets/post_tab.dart';
+import 'package:rivals/features/profile/widgets/replies_tab.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
-import 'package:rivals/theme_usage.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -19,7 +20,9 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
   Future<void> signOut() async {
     try {
       SmartDialog.showLoading();
@@ -36,6 +39,12 @@ class _ProfileState extends State<Profile> {
     } finally {
       SmartDialog.dismiss();
     }
+  }
+
+  @override
+  void initState() {
+    tabController = TabController(length: 3, vsync: this);
+    super.initState();
   }
 
   @override
@@ -86,114 +95,65 @@ class _ProfileState extends State<Profile> {
                   style: context.tt.bodySmall,
                 ),
                 const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    StreamBuilder<int>(
+                      stream: FollowService.followersCount(auth.user!.uid),
+                      builder: (context, snapshot) {
+                        return Column(
+                          children: [
+                            Text('${snapshot.data ?? 0}'),
+                            Text('Followers'),
+                          ],
+                        );
+                      },
+                    ),
+                    SizedBox(width: 20),
+                    StreamBuilder<int>(
+                      stream: FollowService.followingCount(auth.user!.uid),
+                      builder: (context, snapshot) {
+                        return Column(
+                          children: [
+                            Text('${snapshot.data ?? 0}'),
+                            Text('Following'),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
                 AppButton(label: 'Log Out', onPressed: signOut),
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: Text('Dark mode', style: context.tt.titleMedium),
-                  // subtitle: Text(
-                  //   context.isDark ? 'Currently dark' : 'Currently light',
-                  //   style: context.tt.bodySmall,
-                  // ),
                   value: context.watch<ThemeProvider>().isDark,
                   onChanged: (_) => context.read<ThemeProvider>().toggle(),
                 ),
               ],
             ),
           ),
+          TabBar(
+            controller: tabController,
+            indicatorColor: AppTheme.accent,
+            labelColor: context.cs.onSurface,
+            unselectedLabelColor: context.cs.onSurface,
+            dividerColor: context.cs.outline,
+            labelStyle: context.tt.labelMedium,
+            tabs: const [
+              Tab(text: 'Post'),
+              Tab(text: 'Clips'),
+              Tab(text: 'Replies'),
+            ],
+          ),
           Expanded(
-            child: StreamBuilder<List<PostModel>>(
-              stream: PostService.getPostsByUser(auth.user!.uid),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-
-                final posts = snapshot.data!;
-
-                if (posts.isEmpty) {
-                  return const Center(child: Text('No posts yet'));
-                }
-
-                return ListView.separated(
-                  itemCount: posts.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
-                  itemBuilder: (context, index) {
-                    final post = posts[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(post.content, style: context.tt.bodyMedium),
-                          if (post.hasMedia) ...[
-                            const SizedBox(height: 10),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: post.isVideo
-                                  ? _VideoThumbnail(url: post.mediaUrl)
-                                  : Image.network(
-                                      post.mediaUrl,
-                                      width: double.infinity,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ],
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Icon(
-                                Iconsax.heart,
-                                size: 16,
-                                color: context.cs.onSurface.withOpacity(0.4),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${post.likes}',
-                                style: context.tt.bodySmall,
-                              ),
-                              const SizedBox(width: 16),
-                              Icon(
-                                Iconsax.message,
-                                size: 16,
-                                color: context.cs.onSurface.withOpacity(0.4),
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${post.comments}',
-                                style: context.tt.bodySmall,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-              },
+            child: TabBarView(
+              controller: tabController,
+              children: [PostTab(), ClipsTab(), RepliesTab()],
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _VideoThumbnail extends StatelessWidget {
-  final String url;
-  const _VideoThumbnail({required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: 200,
-        width: double.infinity,
-        color: Colors.black,
-        child: const Center(
-          child: Icon(Icons.play_circle_outline, color: Colors.white, size: 56),
-        ),
       ),
     );
   }

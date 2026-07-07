@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/features/banter/widgets/users_profile.dart';
 import 'package:rivals/shared/app_bar.dart';
+import 'package:rivals/shared/app_follow_button.dart';
 
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
@@ -59,12 +63,28 @@ class Homepage extends StatelessWidget {
                   itemCount: posts.length,
                   itemBuilder: (context, index) {
                     final post = posts[index];
+                    final auth = context.watch<AuthProvider>();
                     return Padding(
                       padding: const EdgeInsets.all(20),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CircleAvatar(radius: 18),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UsersProfile(
+                                    userId: post.userId,
+                                    displayName: post.displayName,
+                                    clubName: post.clubName,
+                                    clubLeague: post.clubName,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: const CircleAvatar(radius: 18),
+                          ),
                           const SizedBox(width: 10),
                           Expanded(
                             child: Column(
@@ -74,6 +94,19 @@ class Homepage extends StatelessWidget {
                                   '@${post.displayName}',
                                   style: context.tt.titleMedium,
                                 ),
+                                // Row(
+                                //   children: [
+                                //     Text(
+                                //       '@${post.displayName}',
+                                //       style: context.tt.labelMedium,
+                                //     ),
+                                //     const Spacer(),
+                                //     FollowButton(
+                                //       currentUserId: auth.user!.uid,
+                                //       targetUserId: post.userId,
+                                //     ),
+                                //   ],
+                                // ),
                                 Text(
                                   post.clubName,
                                   style: context.tt.bodySmall,
@@ -160,7 +193,6 @@ class Homepage extends StatelessWidget {
   }
 }
 
-// simple video placeholder — tap to play
 class _VideoThumbnail extends StatelessWidget {
   final String url;
   const _VideoThumbnail({required this.url});
