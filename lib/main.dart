@@ -13,7 +13,6 @@ import 'package:rivals/features/auth/provider/auth_provider.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/firebase_options.dart';
 
-// late CloudinaryObject cloudinary;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

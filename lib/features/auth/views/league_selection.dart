@@ -104,7 +104,7 @@ class _LeagueSelectionState extends State<LeagueSelection>
                             crossAxisCount: 2,
                             mainAxisSpacing: 20,
                             crossAxisSpacing: 20,
-                            childAspectRatio: 1.2,
+                            childAspectRatio: 1.1,
                           ),
                       itemCount: leagues.length,
                       itemBuilder: (context, index) {

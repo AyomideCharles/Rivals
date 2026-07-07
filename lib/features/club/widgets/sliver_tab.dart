@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rivals/core/theme/app_theme.dart';
 
 class TabsHeader extends SliverPersistentHeaderDelegate {
   final List<String> tabs;
@@ -19,7 +20,6 @@ class TabsHeader extends SliverPersistentHeaderDelegate {
   ) {
     return Container(
       height: 56,
-      color: const Color(0xFF14161B),
       alignment: Alignment.centerLeft,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -34,20 +34,15 @@ class TabsHeader extends SliverPersistentHeaderDelegate {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: on ? const Color(0xFFF7F8F9) : const Color(0xFF23262D),
+                color: on
+                    ? context.cs.surface
+                    : context.cs.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(999),
                 border: Border.all(
-                  color: on ? const Color(0xFFF7F8F9) : const Color(0xFF2C3038),
+                  color: on ? context.cs.onSurface : context.cs.outline,
                 ),
               ),
-              child: Text(
-                tabs[i],
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: on ? const Color(0xFF14161B) : const Color(0xFF7D8794),
-                ),
-              ),
+              child: Text(tabs[i], style: context.tt.titleSmall),
             ),
           );
         },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rivals/core/models/club_model.dart';
+import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
 
 class ClubNewsTab extends StatefulWidget {
@@ -155,7 +156,7 @@ class LeadStory extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w800,
               height: 1.2,
-              color: Color(0xFFF7F8F9),
+              color: context.cs.onSurface,
             ),
           ),
           const SizedBox(height: 8),
@@ -222,7 +223,7 @@ class NewsRow extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.w800,
                     height: 1.25,
-                    color: Color(0xFFF7F8F9),
+                    color: context.cs.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),

@@ -82,129 +82,131 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(showLogo: true),
-      body: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Divider(height: 16),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Welcome back', style: context.tt.displayLarge),
-                  SizedBox(height: 4),
-                  Text("The thread's been going off without you."),
-                  SizedBox(height: 30),
-                  Text('EMAIL', style: context.tt.bodySmall),
-                  SizedBox(height: 12),
-                  AppTextField(
-                    controller: emailController,
-                    hint: 'e.g. you@email.com',
-                    prefixIcon: Icon(Icons.mail),
-                    validator: (String? value) {
-                      if (value == '' || value!.isEmpty) {
-                        return 'Enter email';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 30),
-                  Text('PASSWORD', style: context.tt.bodySmall),
-                  SizedBox(height: 12),
-                  AppTextField(
-                    hint: 'Your password',
-                    controller: passwordController,
-                    obscureText: obscurePassword,
-                    prefixIcon: Icon(Iconsax.lock),
-                    suffixIcon: GestureDetector(
-                      onTap: () {
-                        toggleObscurePassword();
+      body: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Divider(height: 16),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Welcome back', style: context.tt.displayLarge),
+                    SizedBox(height: 4),
+                    Text("The thread's been going off without you."),
+                    SizedBox(height: 30),
+                    Text('EMAIL', style: context.tt.bodySmall),
+                    SizedBox(height: 12),
+                    AppTextField(
+                      controller: emailController,
+                      hint: 'e.g. you@email.com',
+                      prefixIcon: Icon(Icons.mail),
+                      validator: (String? value) {
+                        if (value == '' || value!.isEmpty) {
+                          return 'Enter email';
+                        }
+                        return null;
                       },
-                      child: Icon(
-                        obscurePassword ? Icons.visibility_off : Iconsax.eye,
-                      ),
                     ),
-                    validator: (String? value) {
-                      if (value == '' || value!.isEmpty) {
-                        return 'Enter password';
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 8),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ForgotPassword(),
+                    SizedBox(height: 30),
+                    Text('PASSWORD', style: context.tt.bodySmall),
+                    SizedBox(height: 12),
+                    AppTextField(
+                      hint: 'Your password',
+                      controller: passwordController,
+                      obscureText: obscurePassword,
+                      prefixIcon: Icon(Iconsax.lock),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          toggleObscurePassword();
+                        },
+                        child: Icon(
+                          obscurePassword ? Icons.visibility_off : Iconsax.eye,
                         ),
-                      );
-                    },
-                    child: Align(
-                      alignment: AlignmentGeometry.centerRight,
-                      child: Text(
-                        'Forgot password?',
-                        style: TextStyle(color: AppTheme.accent),
                       ),
+                      validator: (String? value) {
+                        if (value == '' || value!.isEmpty) {
+                          return 'Enter password';
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                  SizedBox(height: 35),
-                  AppButton(
-                    label: 'Log in',
-                    onPressed: () async {
-                      await login(context);
-                    },
-                  ),
-                  SizedBox(height: 15),
-                  Row(
-                    children: [
-                      Expanded(flex: 4, child: Divider()),
-                      SizedBox(width: 20),
-                      Text('OR'),
-                      SizedBox(width: 20),
-                      Expanded(flex: 4, child: Divider()),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  thirdPartySignUp(
-                    'Continue with Apple',
-                    'assets/images/apple_logo.png',
-                  ),
-                  SizedBox(height: 15),
-                  thirdPartySignUp(
-                    'Continue with Google',
-                    'assets/images/google_logo.png',
-                  ),
-                  SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUp()),
-                      );
-                    },
-                    child: Center(
-                      child: RichText(
-                        text: TextSpan(
-                          style: context.tt.titleSmall,
-                          children: [
-                            TextSpan(text: 'New to RIVALS? '),
-                            TextSpan(
-                              text: 'Create an account',
-                              style: TextStyle(color: AppTheme.accent),
-                            ),
-                          ],
+                    SizedBox(height: 8),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPassword(),
+                          ),
+                        );
+                      },
+                      child: Align(
+                        alignment: AlignmentGeometry.centerRight,
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(color: AppTheme.accent),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 35),
+                    AppButton(
+                      label: 'Log in',
+                      onPressed: () async {
+                        await login(context);
+                      },
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Expanded(flex: 4, child: Divider()),
+                        SizedBox(width: 20),
+                        Text('OR'),
+                        SizedBox(width: 20),
+                        Expanded(flex: 4, child: Divider()),
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    thirdPartySignUp(
+                      'Continue with Apple',
+                      'assets/images/apple_logo.png',
+                    ),
+                    SizedBox(height: 15),
+                    thirdPartySignUp(
+                      'Continue with Google',
+                      'assets/images/google_logo.png',
+                    ),
+                    SizedBox(height: 30),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignUp()),
+                        );
+                      },
+                      child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                            style: context.tt.titleSmall,
+                            children: [
+                              TextSpan(text: 'New to RIVALS? '),
+                              TextSpan(
+                                text: 'Create an account',
+                                style: TextStyle(color: AppTheme.accent),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

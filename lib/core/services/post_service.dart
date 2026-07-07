@@ -60,6 +60,16 @@ class PostService {
     });
   }
 
+  // Get all posts by a specific user
+  static Stream<List<PostModel>> getPostsByUser(String userId) {
+    return _db
+        .collection('posts')
+        .where('userId', isEqualTo: userId)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
+  }
+
   // Like a post
   static Future<void> likePost(String postId) async {
     await _db.collection('posts').doc(postId).update({
