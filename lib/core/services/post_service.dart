@@ -10,7 +10,7 @@ class PostService {
   static final _db = FirebaseFirestore.instance;
   static final _picker = ImagePicker();
 
-  // All posts sorted by newest
+  // all posts sorted by newest
   static Stream<List<PostModel>> getAllPosts() {
     return _db
         .collection('posts')
@@ -19,7 +19,7 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // Posts by a specific club
+  // posts by a specific club
   static Stream<List<PostModel>> getPostsByClub(String clubId) {
     return _db
         .collection('posts')
@@ -29,7 +29,7 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // Create a post
+  // create a post
   static Future<void> createPost({
     required String userId,
     required String displayName,
@@ -60,7 +60,7 @@ class PostService {
     });
   }
 
-  // Get all posts by a specific user
+  // get all posts by a specific user
   static Stream<List<PostModel>> getPostsByUser(String userId) {
     return _db
         .collection('posts')
@@ -70,19 +70,19 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // Like a post
+  // like a post
   static Future<void> likePost(String postId) async {
     await _db.collection('posts').doc(postId).update({
       'likes': FieldValue.increment(1),
     });
   }
 
-  // Delete a post
+  // delete a post
   static Future<void> deletePost(String postId) async {
     await _db.collection('posts').doc(postId).delete();
   }
 
-  // Pick image
+  // pick image
   static Future<File?> pickImage({bool fromCamera = false}) async {
     final picked = await _picker.pickImage(
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
@@ -91,7 +91,7 @@ class PostService {
     return picked != null ? File(picked.path) : null;
   }
 
-  // Pick video — max 30 seconds
+  // pick video — max 30 seconds
   static Future<File?> pickVideo({bool fromCamera = false}) async {
     final picked = await _picker.pickVideo(
       source: fromCamera ? ImageSource.camera : ImageSource.gallery,
@@ -100,7 +100,7 @@ class PostService {
     return picked != null ? File(picked.path) : null;
   }
 
-  // Upload to Cloudinary via REST API
+  // upload to cloudinary
   static Future<String> uploadMedia(File file, {bool isVideo = false}) async {
     final resourceType = isVideo ? 'video' : 'image';
     final uri = Uri.parse(

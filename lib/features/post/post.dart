@@ -129,14 +129,12 @@ class _PostState extends State<Post> {
         children: [
           const Divider(height: 16),
 
-          // content area
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // user info
                   Row(
                     children: [
                       const CircleAvatar(radius: 20),
@@ -158,7 +156,6 @@ class _PostState extends State<Post> {
                   ),
                   const SizedBox(height: 16),
 
-                  // text field
                   TextField(
                     controller: _postController,
                     autofocus: true,
@@ -170,7 +167,6 @@ class _PostState extends State<Post> {
                     maxLength: 280,
                   ),
 
-                  // media preview
                   if (_selectedMedia != null) ...[
                     const SizedBox(height: 12),
                     Stack(
@@ -197,7 +193,6 @@ class _PostState extends State<Post> {
                                   fit: BoxFit.cover,
                                 ),
                         ),
-                        // remove button
                         Positioned(
                           top: 8,
                           right: 8,
@@ -237,7 +232,6 @@ class _PostState extends State<Post> {
             ),
           ),
 
-          // bottom toolbar
           const Divider(height: 1),
           SafeArea(
             child: Padding(
@@ -260,7 +254,6 @@ class _PostState extends State<Post> {
                     tooltip: 'Camera',
                   ),
                   const Spacer(),
-                  // character count
                   ValueListenableBuilder(
                     valueListenable: _postController,
                     builder: (context, value, _) => Text(
@@ -268,7 +261,7 @@ class _PostState extends State<Post> {
                       style: context.tt.bodySmall?.copyWith(
                         color: value.text.length > 260
                             ? Colors.red
-                            : context.cs.onSurface.withOpacity(0.4),
+                            : context.cs.onSurface,
                       ),
                     ),
                   ),

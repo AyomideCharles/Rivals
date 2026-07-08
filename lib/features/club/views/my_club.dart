@@ -93,7 +93,6 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
             children: [
               const Divider(height: 16),
 
-              // ── Your club ─────────────────────────────────────
               const Padding(
                 padding: EdgeInsets.only(left: 20, top: 20),
                 child: Text('Your community'),
@@ -170,7 +169,6 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
                 child: Text('Explore clubs'),
               ),
 
-              // ── League tabs ───────────────────────────────────
               TabBar(
                 controller: _tabController,
                 isScrollable: true,
@@ -185,7 +183,6 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
                 tabs: _leagues.map((l) => Tab(text: l)).toList(),
               ),
 
-              // ── Club list per tab ─────────────────────────────
               Expanded(
                 child: TabBarView(
                   controller: _tabController,

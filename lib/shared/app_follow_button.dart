@@ -18,7 +18,7 @@ class FollowButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // don't show button on your own profile
+    // don't show button on my own profile
     if (currentUserId == targetUserId) return const SizedBox.shrink();
 
     return StreamBuilder<bool>(

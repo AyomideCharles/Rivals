@@ -19,7 +19,6 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final themeProvider = ThemeProvider();
   await themeProvider.init();
-  // cloudinary = CloudinaryObject.fromCloudName(cloudName: 'xu5lic7g');
   // ignore: deprecated_member_use
   CloudinaryContext.cloudinary = Cloudinary.fromCloudName(
     cloudName: AppConstants.cloudinaryCloudName,
