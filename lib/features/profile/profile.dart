@@ -6,7 +6,7 @@ import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/profile/widgets/clips_tab.dart';
 import 'package:rivals/features/profile/widgets/post_tab.dart';
 import 'package:rivals/features/profile/widgets/replies_tab.dart';
@@ -51,6 +51,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
 
+    if (auth.user == null) {
+      return const Scaffold(body: SizedBox.shrink());
+    }
+
     return Scaffold(
       appBar: CustomAppBar(
         backButton: false,
@@ -78,83 +82,111 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CircleAvatar(radius: 36),
-                const SizedBox(height: 12),
-                Text(auth.displayName, style: context.tt.titleMedium),
-                Text(auth.email, style: context.tt.bodySmall),
-                const SizedBox(height: 4),
-                Text(
-                  '${auth.clubName} · ${auth.clubLeague}',
-                  style: context.tt.bodySmall,
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    StreamBuilder<int>(
-                      stream: FollowService.followersCount(auth.user!.uid),
-                      builder: (context, snapshot) {
-                        return Column(
-                          children: [
-                            Text('${snapshot.data ?? 0}'),
-                            Text('Followers'),
-                          ],
-                        );
-                      },
+                    const CircleAvatar(radius: 36),
+                    const SizedBox(height: 12),
+                    Text('@${auth.displayName}', style: context.tt.titleMedium),
+                    Text(auth.email, style: context.tt.bodySmall),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${auth.clubName} · ${auth.clubLeague}',
+                      style: context.tt.bodySmall,
                     ),
-                    SizedBox(width: 20),
-                    StreamBuilder<int>(
-                      stream: FollowService.followingCount(auth.user!.uid),
-                      builder: (context, snapshot) {
-                        return Column(
-                          children: [
-                            Text('${snapshot.data ?? 0}'),
-                            Text('Following'),
-                          ],
-                        );
-                      },
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        StreamBuilder<int>(
+                          stream: FollowService.followersCount(auth.user!.uid),
+                          builder: (context, snapshot) {
+                            return Column(
+                              children: [
+                                Text('${snapshot.data ?? 0}'),
+                                Text('Followers'),
+                              ],
+                            );
+                          },
+                        ),
+                        SizedBox(width: 40),
+                        StreamBuilder<int>(
+                          stream: FollowService.followingCount(auth.user!.uid),
+                          builder: (context, snapshot) {
+                            return Column(
+                              children: [
+                                Text('${snapshot.data ?? 0}'),
+                                Text('Following'),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    AppButton(label: 'Log Out', onPressed: signOut),
+                    SwitchListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: Text('Dark mode', style: context.tt.titleMedium),
+                      value: context.watch<ThemeProvider>().isDark,
+                      onChanged: (_) => context.read<ThemeProvider>().toggle(),
                     ),
                   ],
                 ),
-                const SizedBox(height: 8),
-                AppButton(label: 'Log Out', onPressed: signOut),
-                SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text('Dark mode', style: context.tt.titleMedium),
-                  value: context.watch<ThemeProvider>().isDark,
-                  onChanged: (_) => context.read<ThemeProvider>().toggle(),
+              ),
+            ),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: TabHeader(
+                TabBar(
+                  controller: tabController,
+                  indicatorColor: AppTheme.accent,
+                  labelColor: context.cs.onSurface,
+                  unselectedLabelColor: context.cs.onSurface,
+                  dividerColor: context.cs.outline,
+                  labelStyle: context.tt.labelMedium,
+                  tabs: const [
+                    Tab(text: 'Post'),
+                    Tab(text: 'Clips'),
+                    Tab(text: 'Replies'),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-          TabBar(
-            controller: tabController,
-            indicatorColor: AppTheme.accent,
-            labelColor: context.cs.onSurface,
-            unselectedLabelColor: context.cs.onSurface,
-            dividerColor: context.cs.outline,
-            labelStyle: context.tt.labelMedium,
-            tabs: const [
-              Tab(text: 'Post'),
-              Tab(text: 'Clips'),
-              Tab(text: 'Replies'),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: tabController,
-              children: [PostTab(), ClipsTab(), RepliesTab()],
-            ),
-          ),
-        ],
+          ];
+        },
+        body: TabBarView(
+          controller: tabController,
+          children: [PostTab(), ClipsTab(), RepliesTab()],
+        ),
       ),
     );
   }
+}
+
+class TabHeader extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+  const TabHeader(this.tabBar);
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return ColoredBox(color: context.bgColor, child: tabBar);
+  }
+
+  @override
+  bool shouldRebuild(covariant TabHeader old) => false;
 }

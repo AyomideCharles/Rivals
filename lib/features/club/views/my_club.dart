@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/models/club_model.dart';
 import 'package:rivals/core/services/club_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/club/views/club_details.dart';
 import 'package:rivals/shared/app_bar.dart';
 

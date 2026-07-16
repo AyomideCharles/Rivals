@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/bottom_navigation.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/views/forgot_password.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/auth/views/sign_up.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';

@@ -33,8 +33,8 @@ class _BottomNavState extends State<BottomNav> {
       // With IndexedStack:
       // Feed (alive) → tap Explore → Feed (hidden) → Explore (visible)
       // tap Feed again → Feed (visible again, scroll exactly where you left it)
-      // body: pages[currentIndex],
-      body: IndexedStack(index: currentIndex, children: pages),
+      body: pages[currentIndex],
+      // body: IndexedStack(index: currentIndex, children: pages),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(

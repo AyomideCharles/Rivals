@@ -9,10 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/constants.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/firebase_options.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

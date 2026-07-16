@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/shared/app_video_player.dart';
 
 class PostTab extends StatelessWidget {
   const PostTab({super.key});
@@ -42,7 +43,7 @@ class PostTab extends StatelessWidget {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: post.isVideo
-                          ? _VideoThumbnail(url: post.mediaUrl)
+                          ? AppVideoPlayer(url: post.mediaUrl)
                           : Image.network(
                               post.mediaUrl,
                               width: double.infinity,
@@ -77,26 +78,6 @@ class PostTab extends StatelessWidget {
           },
         );
       },
-    );
-  }
-}
-
-class _VideoThumbnail extends StatelessWidget {
-  final String url;
-  const _VideoThumbnail({required this.url});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        height: 200,
-        width: double.infinity,
-        color: Colors.black,
-        child: const Center(
-          child: Icon(Icons.play_circle_outline, color: Colors.white, size: 56),
-        ),
-      ),
     );
   }
 }

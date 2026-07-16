@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/bottom_navigation.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 
 class SplashScreen extends StatefulWidget {
   final VoidCallback onDone;

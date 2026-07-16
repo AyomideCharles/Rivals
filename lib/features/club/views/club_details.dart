@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rivals/core/models/club_model.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
+import 'package:rivals/features/club/widgets/club_fixtures_tab.dart';
 import 'package:rivals/features/club/widgets/club_news_tab.dart';
 import 'package:rivals/features/club/widgets/sliver_tab.dart';
 import 'package:rivals/shared/app_button.dart';
@@ -47,7 +48,6 @@ class _ClubDetailsState extends State<ClubDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color(0xFF14161B),
       backgroundColor: context.bgColor,
       body: CustomScrollView(
         slivers: [
@@ -87,10 +87,7 @@ class _ClubDetailsState extends State<ClubDetails> {
                           : 0;
                       return Row(
                         children: [
-                          clubStat(
-                            members.toString(),
-                            'Members',
-                          ), // 👈 live from Firestore
+                          clubStat(members.toString(), 'Members'),
                           clubStat('4.2K', 'Posts today'),
                           clubStat('#3', 'Banter rank'),
                         ],
@@ -113,6 +110,8 @@ class _ClubDetailsState extends State<ClubDetails> {
           ),
           if (selectedTab == 0)
             SliverToBoxAdapter(child: ClubNewsTab(club: widget.clubModel))
+          else if (selectedTab == 2)
+            SliverToBoxAdapter(child: ClubFixturesTab())
           else
             SliverToBoxAdapter(
               child: Padding(
@@ -126,24 +125,6 @@ class _ClubDetailsState extends State<ClubDetails> {
               ),
             ),
 
-          // if (selectedTab == 0)
-          //   SliverList(
-          //     delegate: SliverChildBuilderDelegate((context, i) {
-          //       return ClubNewsTab(club: widget.clubModel);
-          //     }),
-          //   )
-          // else
-          //   SliverToBoxAdapter(
-          //     child: Padding(
-          //       padding: const EdgeInsets.all(48),
-          //       child: Center(
-          //         child: Text(
-          //           '${clubTabs[selectedTab]} coming soon',
-          //           style: context.tt.labelMedium,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
           const SliverToBoxAdapter(child: SizedBox(height: 24)),
         ],
       ),
@@ -200,7 +181,6 @@ class Banner extends StatelessWidget {
             ),
           ),
         ),
-        // crest + name lockup
         Positioned(
           left: 20,
           bottom: 18,
@@ -260,7 +240,6 @@ class Banner extends StatelessWidget {
   }
 }
 
-// ---- minimal club model (map from your data layer) ----
 class Club {
   final String name, short, nick, members;
   final Color color, ink;

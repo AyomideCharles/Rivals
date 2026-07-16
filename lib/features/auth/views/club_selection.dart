@@ -9,7 +9,7 @@ import 'package:rivals/core/services/club_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 
 class ClubSelection extends StatefulWidget {
   final String title;
@@ -22,7 +22,7 @@ class ClubSelection extends StatefulWidget {
 class _ClubSelectionState extends State<ClubSelection>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
-  ClubModel? selectedClub; // 👈 ClubModel instead of Map
+  ClubModel? selectedClub;
 
   @override
   void initState() {

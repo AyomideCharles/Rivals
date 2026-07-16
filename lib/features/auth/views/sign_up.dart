@@ -4,7 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/views/login.dart';
-import 'package:rivals/features/auth/provider/auth_provider.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/auth/views/league_selection.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
