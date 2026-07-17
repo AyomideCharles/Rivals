@@ -8,6 +8,7 @@ import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
+import 'package:rivals/shared/user_avatar.dart';
 
 class Post extends StatefulWidget {
   const Post({super.key});
@@ -98,7 +99,8 @@ class _PostState extends State<Post> {
         clubColor: auth.clubColor,
         content: content,
         mediaFile: _selectedMedia,
-        isVideo: _isVideo, profileImageUrl: auth.profileImageUrl,
+        isVideo: _isVideo,
+        profileImageUrl: auth.profileImageUrl,
       );
 
       SmartDialog.dismiss();
@@ -136,7 +138,10 @@ class _PostState extends State<Post> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(radius: 20),
+                      UserAvatar(
+                        photoUrl: auth.profileImageUrl,
+                        displayName: auth.displayName,
+                      ),
                       const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

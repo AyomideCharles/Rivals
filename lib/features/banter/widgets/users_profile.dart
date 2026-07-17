@@ -15,12 +15,14 @@ class UsersProfile extends StatefulWidget {
   final String displayName;
   final String clubName;
   final String clubLeague;
+  final String profileImageUrl;
   const UsersProfile({
     super.key,
     required this.userId,
     required this.displayName,
     required this.clubName,
     required this.clubLeague,
+    required this.profileImageUrl,
   });
 
   @override
@@ -59,7 +61,17 @@ class _UsersProfileState extends State<UsersProfile>
                   children: [
                     Row(
                       children: [
-                        const CircleAvatar(radius: 36),
+                        widget.profileImageUrl.isEmpty
+                            ? CircleAvatar(radius: 36)
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.network(
+                                  widget.profileImageUrl,
+                                  width: 70,
+                                  height: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Row(

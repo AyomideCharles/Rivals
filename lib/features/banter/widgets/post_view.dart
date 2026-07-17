@@ -26,6 +26,7 @@ class PostsView extends StatelessWidget {
                     displayName: post.displayName,
                     clubName: post.clubName,
                     clubLeague: post.clubName,
+                    profileImageUrl: post.profileImageUrl,
                   ),
                 ),
               );
