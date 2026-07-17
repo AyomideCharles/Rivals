@@ -39,6 +39,7 @@ class PostService {
     required String content,
     File? mediaFile,
     bool isVideo = false,
+    required String profileImageUrl,
   }) async {
     String mediaUrl = '';
     if (mediaFile != null) {
@@ -57,6 +58,7 @@ class PostService {
       'createdAt': FieldValue.serverTimestamp(),
       'mediaUrl': mediaUrl,
       'isVideo': isVideo,
+      'profileImageUrl': profileImageUrl,
     });
   }
 

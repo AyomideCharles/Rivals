@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 
-class Clips extends StatelessWidget {
+class Clips extends StatefulWidget {
   const Clips({super.key});
 
   @override
+  State<Clips> createState() => _ClipsState();
+}
+
+class _ClipsState extends State<Clips> {
+  final pageController = PageController();
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text('Clips')));
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            height: double.infinity,
+            width: double.infinity,
+            decoration: BoxDecoration(color: Colors.blue),
+          ),
+          Center(child: Text('data')),
+        ],
+      ),
+    );
   }
 }
 
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:rivals/features/auth/splash_screen.dart';
+// import 'package:rivals/features/auth/widgets/splash_screen.dart';
 
 // // ============================================================
 // // Model + sample data

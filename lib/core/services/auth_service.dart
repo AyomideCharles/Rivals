@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:rivals/core/services/cloudinary_service.dart';
 
 class AuthProvider extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -21,6 +24,7 @@ class AuthProvider extends ChangeNotifier {
   String get clubColor => _userData?['clubColor'] ?? '';
   String get clubLeague => _userData?['clubLeague'] ?? '';
   bool get hasClub => _userData?['clubId'] != null;
+  String get profileImageUrl => _userData?['profileImageUrl'] ?? '';
 
   AuthProvider() {
     auth.authStateChanges().listen((user) async {
@@ -66,6 +70,7 @@ class AuthProvider extends ChangeNotifier {
         'clubNickname': null,
         'clubColor': null,
         'clubLeague': null,
+        'profileImageUrl': '',
         'createdAt': FieldValue.serverTimestamp(),
       };
       await firestore.collection('users').doc(userInfo.user!.uid).set(data);
@@ -101,5 +106,18 @@ class AuthProvider extends ChangeNotifier {
     _userData = null;
     notifyListeners();
     await auth.signOut();
+  }
+
+  Future<void> updateProfilePhoto(File file) async {
+    if (_user == null) return;
+
+    final url = await CloudinaryService.uploadMedia(file);
+
+    await firestore.collection('users').doc(_user!.uid).update({
+      'profileImageUrl': url,
+    });
+
+    _userData?['profileImageUrl'] = url;
+    notifyListeners();
   }
 }

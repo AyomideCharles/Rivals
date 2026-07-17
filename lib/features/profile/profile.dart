@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/core/utils/media_picker.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/profile/widgets/clips_tab.dart';
@@ -38,6 +39,31 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
       SmartDialog.showToast(e.toString());
     } finally {
       SmartDialog.dismiss();
+    }
+  }
+
+  // Future<void> _pickMedia() async {
+  //   final result = await MediaPicker.showMediaPicker(context);
+  //   if (result != null && result.file != null) {
+  //     setState(() {
+  //       // _selectedMedia = result.file;
+  //       // _isVideo = result.isVideo;
+  //     });
+  //   }
+  // }
+
+  Future<void> _updatePhoto() async {
+    final result = await MediaPicker.showMediaPicker(context);
+    if (result == null || result.file == null || result.isVideo) return;
+
+    try {
+      SmartDialog.showLoading(msg: 'Updating photo...');
+      await context.read<AuthProvider>().updateProfilePhoto(result.file!);
+      SmartDialog.dismiss();
+      SmartDialog.showToast('Photo updated!');
+    } catch (e) {
+      SmartDialog.dismiss();
+      SmartDialog.showToast(e.toString());
     }
   }
 
@@ -91,7 +117,68 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CircleAvatar(radius: 36),
+                    GestureDetector(
+                      onTap: _updatePhoto,
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 36,
+                            backgroundImage: auth.profileImageUrl.isNotEmpty
+                                ? NetworkImage(auth.profileImageUrl)
+                                : null,
+                            child: auth.profileImageUrl.isEmpty
+                                ? Text(
+                                    auth.displayName.isNotEmpty
+                                        ? auth.displayName[0].toUpperCase()
+                                        : '?',
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: context.cs.outline),
+                                color: context.cs.surface,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Iconsax.user_edit4, size: 13),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // GestureDetector(
+                    //   onTap: () async {
+                    //     await _updatePhoto();
+                    //   },
+                    //   child: Stack(
+                    //     children: [
+                    //       const CircleAvatar(radius: 36),
+                    //       Positioned(
+                    //         bottom: 0,
+                    //         right: 0,
+                    //         child: Container(
+                    //           width: 20,
+                    //           height: 20,
+                    //           decoration: BoxDecoration(
+                    //             border: Border.all(color: context.cs.outline),
+                    //             color: context.cs.surface,
+                    //             shape: BoxShape.circle,
+                    //           ),
+                    //           child: Icon(Iconsax.user_edit4, size: 13),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     const SizedBox(height: 12),
                     Text('@${auth.displayName}', style: context.tt.titleMedium),
                     Text(auth.email, style: context.tt.bodySmall),

@@ -12,9 +12,9 @@ class AppTheme {
   AppTheme._();
 
   // ── Brand palette ──────────────────────────────────────────────────────────
-  static const Color _accent = Color(0xFFB6F24D);
+  // static const Color _accent = Color(0xFFB6F24D);
   // static const Color _accent = Color(0xFF52A8FF);
-  // static const Color _accent = Color(0xFFFF8A3D);
+  static const Color _accent = Color(0xFFFF8A3D);
   static const Color accentInk = Color(0xFF10210A);
   static const Color _accentDark = Color(0xFF12A35E);
   static const Color _navy = Color(0xFF1A1A2E);

@@ -98,13 +98,12 @@ class _PostState extends State<Post> {
         clubColor: auth.clubColor,
         content: content,
         mediaFile: _selectedMedia,
-        isVideo: _isVideo,
+        isVideo: _isVideo, profileImageUrl: auth.profileImageUrl,
       );
 
       SmartDialog.dismiss();
       if (mounted) Navigator.pop(context);
     } catch (e) {
-      print(e.toString());
       SmartDialog.dismiss();
       SmartDialog.showToast(e.toString());
     }
