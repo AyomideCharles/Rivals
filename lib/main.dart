@@ -6,11 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:rivals/core/constants.dart';
+import 'package:rivals/core/constants/constants.dart';
 import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
+import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/firebase_options.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => themeProvider),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PostProvider()),
       ],
       child: const MyApp(),
     ),

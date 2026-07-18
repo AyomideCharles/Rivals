@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:rivals/core/constants.dart';
+import 'package:rivals/core/constants/constants.dart';
 
 class CloudinaryService {
   static Future<String> uploadMedia(File file, {bool isVideo = false}) async {

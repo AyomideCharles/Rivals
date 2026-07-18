@@ -26,13 +26,6 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //       Without IndexedStack:
-      // Feed (alive) → tap Explore → Feed (destroyed) → Explore (created)
-      // tap Feed again → Feed (created fresh, scroll reset to top)
-
-      // With IndexedStack:
-      // Feed (alive) → tap Explore → Feed (hidden) → Explore (visible)
-      // tap Feed again → Feed (visible again, scroll exactly where you left it)
       // body: pages[currentIndex],
       body: IndexedStack(index: currentIndex, children: pages),
       floatingActionButton: FloatingActionButton(
@@ -40,33 +33,6 @@ class _BottomNavState extends State<BottomNav> {
           Navigator.of(
             context,
           ).push(MaterialPageRoute(builder: (_) => const Post()));
-          // showModalBottomSheet(
-          //   context: context,
-          //   builder: (_) => Padding(
-          //     padding: const EdgeInsets.all(24),
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text('Post options', style: context.tt.headlineSmall),
-          //         const SizedBox(height: 16),
-          //         ListTile(
-          //           leading: const Icon(Icons.share),
-          //           title: const Text('Share post'),
-          //           onTap: () {},
-          //         ),
-          //         ListTile(
-          //           leading: Icon(Icons.flag, color: context.cs.error),
-          //           title: Text(
-          //             'Report post',
-          //             style: TextStyle(color: context.cs.error),
-          //           ),
-          //           onTap: () {},
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // );
         },
         backgroundColor: AppTheme.accent,
         child: Icon(Iconsax.add, color: Colors.black),

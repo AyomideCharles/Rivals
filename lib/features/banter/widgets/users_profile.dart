@@ -6,6 +6,7 @@ import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_follow_button.dart';
 import 'package:rivals/shared/app_video_player.dart';
@@ -15,12 +16,14 @@ class UsersProfile extends StatefulWidget {
   final String displayName;
   final String clubName;
   final String clubLeague;
+  final String profileImageUrl;
   const UsersProfile({
     super.key,
     required this.userId,
     required this.displayName,
     required this.clubName,
     required this.clubLeague,
+    required this.profileImageUrl,
   });
 
   @override
@@ -59,7 +62,17 @@ class _UsersProfileState extends State<UsersProfile>
                   children: [
                     Row(
                       children: [
-                        const CircleAvatar(radius: 36),
+                        widget.profileImageUrl.isEmpty
+                            ? CircleAvatar(radius: 36)
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.network(
+                                  widget.profileImageUrl,
+                                  width: 70,
+                                  height: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                         const SizedBox(width: 16),
                         Expanded(
                           child: Row(
@@ -69,38 +82,64 @@ class _UsersProfileState extends State<UsersProfile>
                                 stream: FollowService.followersCount(
                                   widget.userId,
                                 ),
-                                builder: (context, snapshot) => Column(
-                                  children: [
-                                    Text(
-                                      '${snapshot.data ?? 0}',
-                                      style: context.tt.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.w800,
+                                builder: (context, snapshot) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FollowList(
+                                          userId: widget.userId,
+                                          type: FollowListType.followers,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Followers',
-                                      style: context.tt.bodySmall,
-                                    ),
-                                  ],
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '${snapshot.data ?? 0}',
+                                        style: context.tt.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Followers',
+                                        style: context.tt.bodySmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                               StreamBuilder<int>(
                                 stream: FollowService.followingCount(
                                   widget.userId,
                                 ),
-                                builder: (context, snapshot) => Column(
-                                  children: [
-                                    Text(
-                                      '${snapshot.data ?? 0}',
-                                      style: context.tt.titleMedium?.copyWith(
-                                        fontWeight: FontWeight.w800,
+                                builder: (context, snapshot) => GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FollowList(
+                                          userId: widget.userId,
+                                          type: FollowListType.following,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Following',
-                                      style: context.tt.bodySmall,
-                                    ),
-                                  ],
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        '${snapshot.data ?? 0}',
+                                        style: context.tt.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Following',
+                                        style: context.tt.bodySmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

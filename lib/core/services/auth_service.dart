@@ -111,11 +111,33 @@ class AuthProvider extends ChangeNotifier {
   Future<void> updateProfilePhoto(File file) async {
     if (_user == null) return;
 
+    // upload to cloudinary
     final url = await CloudinaryService.uploadMedia(file);
 
+    // this is to update user document on FS, for latest change
     await firestore.collection('users').doc(_user!.uid).update({
       'profileImageUrl': url,
     });
+
+    //update existing post with new PP
+    final posts = await firestore
+        .collection('posts')
+        .where('userId', isEqualTo: _user!.uid)
+        .get();
+
+    if (posts.docs.isNotEmpty) {
+      for (var i = 0; i < posts.docs.length; i += 500) {
+        final chunk = posts.docs.sublist(
+          i,
+          i + 500 > posts.docs.length ? posts.docs.length : i + 500,
+        );
+        final batch = firestore.batch();
+        for (final doc in chunk) {
+          batch.update(doc.reference, {'profileImageUrl': url});
+        }
+        await batch.commit();
+      }
+    }
 
     _userData?['profileImageUrl'] = url;
     notifyListeners();

@@ -1,13 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
+import 'package:rivals/shared/user_avatar.dart';
 
 class Post extends StatefulWidget {
   const Post({super.key});
@@ -76,37 +77,27 @@ class _PostState extends State<Post> {
     );
   }
 
-  Future<void> _post() async {
+  Future<void> creatPost() async {
     final auth = context.read<AuthProvider>();
     final content = _postController.text.trim();
 
     if (content.isEmpty && _selectedMedia == null) {
-      SmartDialog.showToast('Add some text or a photo/video');
       return;
     }
 
-    try {
-      SmartDialog.showLoading(
-        msg: _selectedMedia != null ? 'Uploading media...' : 'Posting...',
-      );
+    await context.read<PostProvider>().createPost(
+      userId: auth.user?.uid ?? '',
+      displayName: auth.displayName,
+      clubId: auth.clubId,
+      clubName: auth.clubName,
+      clubColor: auth.clubColor,
+      content: content,
+      profileImageUrl: auth.profileImageUrl,
+      mediaFile: _selectedMedia,
+      isVideo: _isVideo,
+    );
 
-      await PostService.createPost(
-        userId: auth.user?.uid ?? '',
-        displayName: auth.displayName,
-        clubId: auth.clubId,
-        clubName: auth.clubName,
-        clubColor: auth.clubColor,
-        content: content,
-        mediaFile: _selectedMedia,
-        isVideo: _isVideo, profileImageUrl: auth.profileImageUrl,
-      );
-
-      SmartDialog.dismiss();
-      if (mounted) Navigator.pop(context);
-    } catch (e) {
-      SmartDialog.dismiss();
-      SmartDialog.showToast(e.toString());
-    }
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -119,7 +110,7 @@ class _PostState extends State<Post> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 20),
-            child: AppButton(label: 'Post', onPressed: _post, width: 80),
+            child: AppButton(label: 'Post', onPressed: creatPost, width: 80),
           ),
         ],
       ),
@@ -136,7 +127,10 @@ class _PostState extends State<Post> {
                 children: [
                   Row(
                     children: [
-                      const CircleAvatar(radius: 20),
+                      UserAvatar(
+                        photoUrl: auth.profileImageUrl,
+                        displayName: auth.displayName,
+                      ),
                       const SizedBox(width: 12),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
