@@ -96,7 +96,7 @@ class PostsView extends StatelessWidget {
                           value: 'copy',
                           child: Row(
                             children: [
-                              Icon(Icons.copy, size: 18),
+                              Icon(Iconsax.copy, size: 18),
                               SizedBox(width: 10),
                               Text('Copy text'),
                             ],
@@ -106,13 +106,12 @@ class PostsView extends StatelessWidget {
                           value: 'report',
                           child: Row(
                             children: [
-                              Icon(Icons.flag_outlined, size: 18),
+                              Icon(Iconsax.flag_2, size: 18),
                               SizedBox(width: 10),
                               Text('Report'),
                             ],
                           ),
                         ),
-                        // only show delete if it's the current user's post
                         if (post.userId ==
                             context.read<AuthProvider>().user?.uid)
                           const PopupMenuItem(
@@ -120,7 +119,7 @@ class PostsView extends StatelessWidget {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.delete_outline,
+                                  Iconsax.trash,
                                   size: 18,
                                   color: Colors.red,
                                 ),
@@ -140,7 +139,6 @@ class PostsView extends StatelessWidget {
                 if (post.content.isNotEmpty)
                   Text(post.content, style: context.tt.titleMedium),
 
-                // media
                 if (post.hasMedia) ...[
                   const SizedBox(height: 10),
                   ClipRRect(

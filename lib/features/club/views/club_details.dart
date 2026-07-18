@@ -54,6 +54,7 @@ class _ClubDetailsState extends State<ClubDetails> {
           SliverAppBar(
             pinned: true,
             expandedHeight: 200,
+            // backgroundColor: widget.clubModel.color,
             backgroundColor: widget.clubModel.color,
             foregroundColor: widget.clubModel.ink,
             elevation: 0,
@@ -223,7 +224,8 @@ class Banner extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'The ${clubModel.nickname}',
+                    // 'The ${clubModel.nickname}',
+                    clubModel.nickname,
                     style: TextStyle(
                       color: clubModel.ink.withOpacity(0.85),
                       fontWeight: FontWeight.w600,
