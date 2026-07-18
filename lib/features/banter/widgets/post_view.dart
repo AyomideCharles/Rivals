@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/banter/widgets/users_profile.dart';
+import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/shared/app_video_player.dart';
 
 class PostsView extends StatelessWidget {
@@ -11,6 +14,8 @@ class PostsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final postProvider = context.read<PostProvider>();
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -57,8 +62,80 @@ class PostsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('@${post.displayName}', style: context.tt.titleMedium),
-                Text(post.clubName, style: context.tt.bodySmall),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '@${post.displayName}',
+                          style: context.tt.titleMedium,
+                        ),
+                        Text(post.clubName, style: context.tt.bodySmall),
+                      ],
+                    ),
+                    PopupMenuButton<String>(
+                      icon: const Icon(Icons.more_vert),
+                      onSelected: (value) {
+                        switch (value) {
+                          case 'report':
+                            // handle report
+                            break;
+                          case 'delete':
+                            // deletePost();
+                            postProvider.deletePost(post.id);
+                            break;
+                          case 'copy':
+                            // handle copy
+                            break;
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(
+                          value: 'copy',
+                          child: Row(
+                            children: [
+                              Icon(Icons.copy, size: 18),
+                              SizedBox(width: 10),
+                              Text('Copy text'),
+                            ],
+                          ),
+                        ),
+                        const PopupMenuItem(
+                          value: 'report',
+                          child: Row(
+                            children: [
+                              Icon(Icons.flag_outlined, size: 18),
+                              SizedBox(width: 10),
+                              Text('Report'),
+                            ],
+                          ),
+                        ),
+                        // only show delete if it's the current user's post
+                        if (post.userId ==
+                            context.read<AuthProvider>().user?.uid)
+                          const PopupMenuItem(
+                            value: 'delete',
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.delete_outline,
+                                  size: 18,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 8),
                 if (post.content.isNotEmpty)
                   Text(post.content, style: context.tt.titleMedium),

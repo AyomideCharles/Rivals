@@ -47,16 +47,27 @@ class FollowService {
         .map((snap) => snap.docs.length);
   }
 
-  // get list of userIds the current user follows
-  static Stream<List<String>> getFollowingIds(String userId) {
-    return _db
-        .collection('follows')
-        .where('followerId', isEqualTo: userId)
-        .snapshots()
-        .map(
-          (snap) => snap.docs
-              .map((doc) => doc.data()['followingId'] as String)
-              .toList(),
-        );
+  //  batch fetch user profiles for a list of IDs
+  static Future<Map<String, Map<String, dynamic>>> fetchUsersByIds(
+    List<String> ids,
+  ) async {
+    if (ids.isEmpty) return {};
+
+    final result = <String, Map<String, dynamic>>{};
+
+    for (var i = 0; i < ids.length; i += 10) {
+      final chunk = ids.sublist(i, i + 10 > ids.length ? ids.length : i + 10);
+
+      final snap = await _db
+          .collection('users')
+          .where(FieldPath.documentId, whereIn: chunk)
+          .get();
+
+      for (final doc in snap.docs) {
+        result[doc.id] = doc.data();
+      }
+    }
+
+    return result;
   }
 }

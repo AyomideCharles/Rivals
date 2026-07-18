@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Single source of truth for all visual styling in Footy Hub.
-/// Usage:
-///   MaterialApp(
-///     theme: AppTheme.light,
-///     darkTheme: AppTheme.dark,
-///     themeMode: ThemeMode.system,
-///   )
 class AppTheme {
   AppTheme._();
 
@@ -228,7 +221,7 @@ class AppTheme {
         backgroundColor: surface,
         foregroundColor: t1,
         elevation: 0,
-        scrolledUnderElevation: 0.5,
+        scrolledUnderElevation: 0,
         centerTitle: false,
         systemOverlayStyle: isDark
             ? SystemUiOverlayStyle.light

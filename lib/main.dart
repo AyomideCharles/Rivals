@@ -11,6 +11,7 @@ import 'package:rivals/core/providers/theme_providers.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
+import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/firebase_options.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => themeProvider),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => PostProvider()),
       ],
       child: const MyApp(),
     ),

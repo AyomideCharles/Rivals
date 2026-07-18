@@ -9,6 +9,7 @@ import 'package:rivals/core/utils/media_picker.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/features/profile/widgets/clips_tab.dart';
+import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/features/profile/widgets/post_tab.dart';
 import 'package:rivals/features/profile/widgets/replies_tab.dart';
 import 'package:rivals/shared/app_bar.dart';
@@ -42,17 +43,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
     }
   }
 
-  // Future<void> _pickMedia() async {
-  //   final result = await MediaPicker.showMediaPicker(context);
-  //   if (result != null && result.file != null) {
-  //     setState(() {
-  //       // _selectedMedia = result.file;
-  //       // _isVideo = result.isVideo;
-  //     });
-  //   }
-  // }
-
-  Future<void> _updatePhoto() async {
+  Future<void> updatePhoto() async {
     final result = await MediaPicker.showMediaPicker(context);
     if (result == null || result.file == null || result.isVideo) return;
 
@@ -118,7 +109,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: _updatePhoto,
+                      onTap: updatePhoto,
                       child: Stack(
                         children: [
                           CircleAvatar(
@@ -155,30 +146,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         ],
                       ),
                     ),
-                    // GestureDetector(
-                    //   onTap: () async {
-                    //     await _updatePhoto();
-                    //   },
-                    //   child: Stack(
-                    //     children: [
-                    //       const CircleAvatar(radius: 36),
-                    //       Positioned(
-                    //         bottom: 0,
-                    //         right: 0,
-                    //         child: Container(
-                    //           width: 20,
-                    //           height: 20,
-                    //           decoration: BoxDecoration(
-                    //             border: Border.all(color: context.cs.outline),
-                    //             color: context.cs.surface,
-                    //             shape: BoxShape.circle,
-                    //           ),
-                    //           child: Icon(Iconsax.user_edit4, size: 13),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     const SizedBox(height: 12),
                     Text('@${auth.displayName}', style: context.tt.titleMedium),
                     Text(auth.email, style: context.tt.bodySmall),
@@ -193,11 +160,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         StreamBuilder<int>(
                           stream: FollowService.followersCount(auth.user!.uid),
                           builder: (context, snapshot) {
-                            return Column(
-                              children: [
-                                Text('${snapshot.data ?? 0}'),
-                                Text('Followers'),
-                              ],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FollowList(
+                                      userId: auth.user!.uid,
+                                      type: FollowListType.followers,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Text('${snapshot.data ?? 0}'),
+                                  Text('Followers'),
+                                ],
+                              ),
                             );
                           },
                         ),
@@ -205,11 +185,24 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         StreamBuilder<int>(
                           stream: FollowService.followingCount(auth.user!.uid),
                           builder: (context, snapshot) {
-                            return Column(
-                              children: [
-                                Text('${snapshot.data ?? 0}'),
-                                Text('Following'),
-                              ],
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => FollowList(
+                                      userId: auth.user!.uid,
+                                      type: FollowListType.following,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Text('${snapshot.data ?? 0}'),
+                                  Text('Following'),
+                                ],
+                              ),
                             );
                           },
                         ),
