@@ -4,73 +4,11 @@ Rivals is a football fan community app where supporters pick one club — locked
 
 
 # Screenshots
-Coming soon
-
-# Features
--  Club & League :
-  
-Choose from 114 clubs across 6 major leagues
-
-Premier League, La Liga, Serie A, Bundesliga, Ligue 1, Primeira Liga
-
-Club colors, badges and nicknames
-
-Real-time member counts per club
-
-Club details with news, fixtures and top fans tabs
+<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 51" src="https://github.com/user-attachments/assets/94a3eb89-d7c4-48cc-9361-e02acf04b645" />
+<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 27" src="https://github.com/user-attachments/assets/6c40e3b6-4d03-4197-bb10-03970f16ccc3" />
+<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 38" src="https://github.com/user-attachments/assets/042a8c9d-6674-4cff-820b-24fbd31a3c6c" />
+<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 35" src="https://github.com/user-attachments/assets/032f66a2-5d14-4379-a8d1-5ef9dca8dd25" />
 
 
-- Feed :
-  
-Global feed — see posts from all fans
-
-My Club feed — posts from your club members only
-
-Like posts with real-time like counts
-
-Upload photos and short videos (max 30s) via Cloudinary
-
-Tap any user avatar to view their profile
-
-
-- Profile :
-
-Display name, email, club and league
-
-Posts, Media and Replies tabs
-
-Followers and following counts
-
-Dark mode toggle
-
-
-- Social :
-
-Follow and unfollow other fans
-
-View any user's public profile
-
-See posts and media from users you follow
-
-
-- Auth :
-  
-
-Email and password signup/login
-
-Persistent sessions — stay logged in between app restarts
-
-Secure Firestore rules per collection
-
-# Tech Stack
-- Framework: Flutter (Dart)
-- Auth: Firebase Authentication 
-- Database: Cloud Firestore
-- Media: Cloudinary (images + video)
-- State: Provider
-- Video: video_player
-- Fonts: Google Fonts (Space Grotesk + Archivo + JetBrains Mono)
-- Icons: Iconsax
-- UI: flutter_screenutil, flutter_smart_dialog
 
 
