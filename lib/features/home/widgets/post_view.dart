@@ -196,6 +196,7 @@ import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/home/widgets/users_profile.dart';
 import 'package:rivals/features/post/provider/post_provider.dart';
+import 'package:rivals/features/post/views/comments.dart';
 import 'package:rivals/shared/app_video_player.dart';
 
 class PostsView extends StatelessWidget {
@@ -335,10 +336,8 @@ class _ActionsRow extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () => context.read<PostProvider>().toggleLike(
-            post.id,
-            auth.user!.uid,
-          ),
+          onTap: () =>
+              context.read<PostProvider>().toggleLike(post.id, auth.user!.uid),
           child: Icon(
             isLiked ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
             size: 16,
@@ -348,7 +347,19 @@ class _ActionsRow extends StatelessWidget {
         const SizedBox(width: 4),
         Text('${post.likes}', style: textStyle),
         const SizedBox(width: 16),
-        Icon(Iconsax.message, size: 16, color: iconColor.withOpacity(0.6)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => CommentsScreen(post: post)),
+            );
+          },
+          child: Icon(
+            Iconsax.message,
+            size: 16,
+            color: iconColor.withOpacity(0.6),
+          ),
+        ),
         const SizedBox(width: 4),
         Text('${post.comments}', style: textStyle),
       ],

@@ -18,13 +18,13 @@ class Post extends StatefulWidget {
 }
 
 class _PostState extends State<Post> {
-  final TextEditingController _postController = TextEditingController();
+  final TextEditingController postController = TextEditingController();
   File? _selectedMedia;
   bool _isVideo = false;
 
   @override
   void dispose() {
-    _postController.dispose();
+    postController.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class _PostState extends State<Post> {
 
   Future<void> creatPost() async {
     final auth = context.read<AuthProvider>();
-    final content = _postController.text.trim();
+    final content = postController.text.trim();
 
     if (content.isEmpty && _selectedMedia == null) {
       return;
@@ -150,7 +150,7 @@ class _PostState extends State<Post> {
                   const SizedBox(height: 16),
 
                   TextField(
-                    controller: _postController,
+                    controller: postController,
                     autofocus: true,
                     decoration: const InputDecoration(
                       hintText: "What's on your mind?",
@@ -248,7 +248,7 @@ class _PostState extends State<Post> {
                   ),
                   const Spacer(),
                   ValueListenableBuilder(
-                    valueListenable: _postController,
+                    valueListenable: postController,
                     builder: (context, value, _) => Text(
                       '${280 - value.text.length}',
                       style: context.tt.bodySmall?.copyWith(

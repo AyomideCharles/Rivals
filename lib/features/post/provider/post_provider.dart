@@ -43,6 +43,35 @@ class PostProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> addComment({
+    required String postId,
+    required String userId,
+    required String displayName,
+    required String profileImageUrl,
+    required String clubName,
+    required String content,
+  }) async {
+    try {
+      notifyListeners();
+      SmartDialog.showLoading(msg: 'Posting comment');
+
+      await PostService.addComment(
+        postId: postId,
+        userId: userId,
+        displayName: displayName,
+        profileImageUrl: profileImageUrl,
+        clubName: clubName,
+        content: content,
+      );
+      SmartDialog.dismiss();
+    } catch (e) {
+      SmartDialog.dismiss();
+      SmartDialog.showToast(e.toString());
+    } finally {
+      notifyListeners();
+    }
+  }
+
   Future<void> deletePost(String postId) async {
     try {
       notifyListeners();
@@ -62,10 +91,10 @@ class PostProvider extends ChangeNotifier {
   }
 
   Future<void> toggleLike(String postId, String userId) async {
-  try {
-    await PostService.toggleLike(postId, userId);
-  } catch (e) {
-    SmartDialog.showToast(e.toString());
+    try {
+      await PostService.toggleLike(postId, userId);
+    } catch (e) {
+      SmartDialog.showToast(e.toString());
+    }
   }
-}
 }
