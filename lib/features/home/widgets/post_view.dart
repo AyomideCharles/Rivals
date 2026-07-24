@@ -327,15 +327,28 @@ class _ActionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
+    final isLiked = post.likedBy.contains(auth.user?.uid);
     final textStyle = context.tt.bodySmall?.copyWith(color: color);
     final iconColor = color ?? context.cs.onSurface;
+
     return Row(
       children: [
-        Icon(Icons.thumb_up_alt_outlined, size: 16, color: iconColor),
+        GestureDetector(
+          onTap: () => context.read<PostProvider>().toggleLike(
+            post.id,
+            auth.user!.uid,
+          ),
+          child: Icon(
+            isLiked ? Icons.thumb_up_alt : Icons.thumb_up_alt_outlined,
+            size: 16,
+            color: isLiked ? AppTheme.accent : iconColor.withOpacity(0.6),
+          ),
+        ),
         const SizedBox(width: 4),
         Text('${post.likes}', style: textStyle),
         const SizedBox(width: 16),
-        Icon(Iconsax.message, size: 16, color: iconColor),
+        Icon(Iconsax.message, size: 16, color: iconColor.withOpacity(0.6)),
         const SizedBox(width: 4),
         Text('${post.comments}', style: textStyle),
       ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/follow_service.dart';
@@ -10,7 +9,6 @@ import 'package:rivals/features/home/widgets/post_view.dart';
 import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_follow_button.dart';
-import 'package:rivals/shared/app_video_player.dart';
 
 class UsersProfile extends StatefulWidget {
   final String userId;

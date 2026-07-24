@@ -60,4 +60,12 @@ class PostProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> toggleLike(String postId, String userId) async {
+  try {
+    await PostService.toggleLike(postId, userId);
+  } catch (e) {
+    SmartDialog.showToast(e.toString());
+  }
+}
 }

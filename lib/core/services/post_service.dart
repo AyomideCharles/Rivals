@@ -73,11 +73,23 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // like a post
-  static Future<void> likePost(String postId) async {
-    await _db.collection('posts').doc(postId).update({
-      'likes': FieldValue.increment(1),
-    });
+  // like post and unlike a post
+  static Future<void> toggleLike(String postId, String userId) async {
+    final doc = _db.collection('posts').doc(postId);
+    final snapshot = await doc.get();
+    final likedBy = List<String>.from(snapshot.data()?['likedBy'] ?? []);
+
+    if (likedBy.contains(userId)) {
+      await doc.update({
+        'likes': FieldValue.increment(-1),
+        'likedBy': FieldValue.arrayRemove([userId]),
+      });
+    } else {
+      await doc.update({
+        'likes': FieldValue.increment(1),
+        'likedBy': FieldValue.arrayUnion([userId]),
+      });
+    }
   }
 
   // delete a post
