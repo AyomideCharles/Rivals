@@ -5,7 +5,7 @@ import 'package:rivals/features/club/views/my_club.dart';
 import 'package:rivals/features/clips/clips.dart';
 import 'package:rivals/features/post/post.dart';
 import 'package:rivals/features/profile/profile.dart';
-import 'package:rivals/features/banter/homepage.dart';
+import 'package:rivals/features/home/homepage.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});

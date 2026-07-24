@@ -54,19 +54,10 @@ class _ClubDetailsState extends State<ClubDetails> {
           SliverAppBar(
             pinned: true,
             expandedHeight: 200,
-            // backgroundColor: widget.clubModel.color,
             backgroundColor: widget.clubModel.color,
             foregroundColor: widget.clubModel.ink,
             elevation: 0,
             leading: const BackButton(),
-            title: Text(
-              widget.clubModel.name,
-              style: GoogleFonts.archivo(
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-                color: widget.clubModel.ink,
-              ),
-            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Banner(clubModel: widget.clubModel),
               collapseMode: CollapseMode.parallax,
@@ -148,7 +139,6 @@ class Banner extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                // club.color,
                 clubModel.color,
                 Color.alphaBlend(
                   clubModel.color.withOpacity(0.55),
@@ -187,44 +177,51 @@ class Banner extends StatelessWidget {
           bottom: 18,
           child: Row(
             children: [
-              clubModel.badgeUrl.isNotEmpty
-                  ? Image.network(
-                      clubModel.badgeUrl,
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        return ShieldCrest(
-                          size: 60,
-                          color: clubModel.color,
-                          ink: clubModel.ink,
-                          label: clubModel.shortName,
-                        );
-                      },
-                    )
-                  : ShieldCrest(
-                      size: 60,
-                      color: clubModel.color,
-                      ink: clubModel.ink,
-                      label: clubModel.shortName,
-                    ),
-
+              Hero(
+                tag: 'club-badge-${clubModel.shortName}',
+                child: clubModel.badgeUrl.isNotEmpty
+                    ? Image.network(
+                        clubModel.badgeUrl,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return ShieldCrest(
+                            size: 60,
+                            color: clubModel.color,
+                            ink: clubModel.ink,
+                            label: clubModel.shortName,
+                          );
+                        },
+                      )
+                    : ShieldCrest(
+                        size: 60,
+                        color: clubModel.color,
+                        ink: clubModel.ink,
+                        label: clubModel.shortName,
+                      ),
+              ),
               const SizedBox(width: 14),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    clubModel.name,
-                    style: GoogleFonts.archivo(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 24,
-                      color: clubModel.ink,
-                      letterSpacing: -0.5,
+                  Hero(
+                    tag: 'club-name-${clubModel.shortName}',
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Text(
+                        clubModel.name,
+                        style: GoogleFonts.archivo(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 24,
+                          color: clubModel.ink,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
                     ),
                   ),
                   Text(
-                    // 'The ${clubModel.nickname}',
                     clubModel.nickname,
                     style: TextStyle(
                       color: clubModel.ink.withOpacity(0.85),
