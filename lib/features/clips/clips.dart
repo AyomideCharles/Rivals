@@ -1,30 +1,30 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class Clips extends StatefulWidget {
-  const Clips({super.key});
+// class Clips extends StatefulWidget {
+//   const Clips({super.key});
 
-  @override
-  State<Clips> createState() => _ClipsState();
-}
+//   @override
+//   State<Clips> createState() => _ClipsState();
+// }
 
-class _ClipsState extends State<Clips> {
-  final pageController = PageController();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: double.infinity,
-            width: double.infinity,
-            decoration: BoxDecoration(color: Colors.blue),
-          ),
-          Center(child: Text('data')),
-        ],
-      ),
-    );
-  }
-}
+// class _ClipsState extends State<Clips> {
+//   final pageController = PageController();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           Container(
+//             height: double.infinity,
+//             width: double.infinity,
+//             decoration: BoxDecoration(color: Colors.blue),
+//           ),
+//           Center(child: Text('data')),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 // import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
@@ -843,3 +843,408 @@ class _ClipsState extends State<Clips> {
 //     );
 //   }
 // }
+
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
+import 'package:rivals/core/models/clips_model.dart';
+import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/core/services/clips_service.dart';
+import 'package:rivals/features/clips/widgets/upload_clips.dart';
+import 'package:video_player/video_player.dart';
+
+class Clips extends StatefulWidget {
+  const Clips({super.key});
+
+  @override
+  State<Clips> createState() => _ClipsState();
+}
+
+class _ClipsState extends State<Clips> {
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<ClipModel>>(
+      stream: ClipsService.getAllClips(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        final clips = snapshot.data!;
+
+        if (clips.isEmpty) {
+          return Scaffold(
+            body: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Iconsax.video,
+                    size: 48,
+                    color: Colors.grey.withOpacity(0.5),
+                  ),
+                  const SizedBox(height: 12),
+                  const Text('No clips yet — be the first to upload!'),
+                  const SizedBox(height: 12),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => UploadClip()),
+                      );
+                    },
+                    child: Text('Add new clip'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return Scaffold(
+          backgroundColor: Colors.black,
+          body: PageView.builder(
+            controller: _pageController,
+            scrollDirection: Axis.vertical,
+            itemCount: clips.length,
+            onPageChanged: (index) => setState(() => _currentPage = index),
+            itemBuilder: (context, index) => _ClipPlayer(
+              clip: clips[index],
+              isActive: index == _currentPage,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// ── Clip player ───────────────────────────────────────────────────────────────
+class _ClipPlayer extends StatefulWidget {
+  final ClipModel clip;
+  final bool isActive;
+  const _ClipPlayer({required this.clip, required this.isActive});
+
+  @override
+  State<_ClipPlayer> createState() => _ClipPlayerState();
+}
+
+class _ClipPlayerState extends State<_ClipPlayer> {
+  late VideoPlayerController _controller;
+  bool _initialized = false;
+  bool _viewCounted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initVideo();
+  }
+
+  Future<void> _initVideo() async {
+    _controller =
+        VideoPlayerController.networkUrl(Uri.parse(widget.clip.videoUrl))
+          ..initialize().then((_) {
+            if (mounted) {
+              setState(() => _initialized = true);
+              if (widget.isActive) {
+                _controller.play();
+                _controller.setLooping(true);
+                _countView();
+              }
+            }
+          });
+  }
+
+  void _countView() {
+    if (!_viewCounted) {
+      _viewCounted = true;
+      ClipsService.incrementViews(widget.clip.id);
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant _ClipPlayer old) {
+    super.didUpdateWidget(old);
+    if (widget.isActive != old.isActive) {
+      if (widget.isActive) {
+        _controller.play();
+        _countView();
+      } else {
+        _controller.pause();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
+    final isLiked = widget.clip.likedBy.contains(auth.user?.uid);
+
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // ── video ────────────────────────────────────────────
+        GestureDetector(
+          onTap: () => setState(() {
+            _controller.value.isPlaying
+                ? _controller.pause()
+                : _controller.play();
+          }),
+          child: _initialized
+              ? FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: _controller.value.size.width,
+                    height: _controller.value.size.height,
+                    child: VideoPlayer(_controller),
+                  ),
+                )
+              : const ColoredBox(
+                  color: Colors.black,
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+        ),
+
+        // ── gradient overlay ─────────────────────────────────
+        const DecoratedBox(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.transparent, Colors.black54],
+            ),
+          ),
+        ),
+
+        // ── pause icon overlay ───────────────────────────────
+        if (_initialized && !_controller.value.isPlaying)
+          const Center(
+            child: Icon(Icons.play_arrow, color: Colors.white54, size: 72),
+          ),
+
+        // ── progress bar ─────────────────────────────────────
+        if (_initialized)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: VideoProgressIndicator(
+              _controller,
+              allowScrubbing: true,
+              colors: const VideoProgressColors(
+                playedColor: Colors.white,
+                bufferedColor: Colors.white30,
+                backgroundColor: Colors.white10,
+              ),
+            ),
+          ),
+
+        // ── right side actions ───────────────────────────────
+        Positioned(
+          right: 16,
+          bottom: 120,
+          child: Column(
+            children: [
+              // like
+              GestureDetector(
+                onTap: () =>
+                    ClipsService.toggleLike(widget.clip.id, auth.user!.uid),
+                child: Column(
+                  children: [
+                    Icon(
+                      isLiked
+                          ? Icons.thumb_up_alt
+                          : Icons.thumb_up_alt_outlined,
+                      color: isLiked ? Colors.red : Colors.white,
+                      size: 32,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${widget.clip.likes}',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // comments
+              GestureDetector(
+                onTap: () {
+                  // TODO: open comments
+                },
+                child: Column(
+                  children: [
+                    const Icon(
+                      Icons.comment_outlined,
+                      color: Colors.white,
+                      size: 32,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '${widget.clip.comments}',
+                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // views
+              Column(
+                children: [
+                  const Icon(
+                    Icons.remove_red_eye_outlined,
+                    color: Colors.white,
+                    size: 32,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '${widget.clip.views}',
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+
+              // delete — only for own clips
+              if (widget.clip.userId == auth.user?.uid)
+                GestureDetector(
+                  onTap: () async {
+                    await ClipsService.deleteClip(widget.clip.id);
+                  },
+                  child: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.white54,
+                    size: 28,
+                  ),
+                ),
+            ],
+          ),
+        ),
+
+        // ── bottom info ──────────────────────────────────────
+        Positioned(
+          left: 16,
+          right: 80,
+          bottom: 40,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // avatar + name
+              Row(
+                children: [
+                  widget.clip.profileImageUrl.isNotEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            widget.clip.profileImageUrl,
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => CircleAvatar(
+                              radius: 20,
+                              child: Text(
+                                widget.clip.displayName.isNotEmpty
+                                    ? widget.clip.displayName[0].toUpperCase()
+                                    : '?',
+                              ),
+                            ),
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 20,
+                          child: Text(
+                            widget.clip.displayName.isNotEmpty
+                                ? widget.clip.displayName[0].toUpperCase()
+                                : '?',
+                          ),
+                        ),
+                  const SizedBox(width: 10),
+                  Text(
+                    '@${widget.clip.displayName}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+
+              // caption
+              if (widget.clip.caption.isNotEmpty) ...[
+                const SizedBox(height: 8),
+                Text(
+                  widget.clip.caption,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+
+              // club tag
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  widget.clip.clubName,
+                  style: const TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        // ── back button (safe area) ──────────────────────────
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8, top: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                ),
+                const Text(
+                  'Clips',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

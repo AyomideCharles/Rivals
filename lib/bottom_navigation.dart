@@ -26,8 +26,8 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: pages[currentIndex],
-      body: IndexedStack(index: currentIndex, children: pages),
+      body: pages[currentIndex],
+      // body: IndexedStack(index: currentIndex, children: pages),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(
