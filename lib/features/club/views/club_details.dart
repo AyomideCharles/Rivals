@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/core/models/club_model.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/features/club/widgets/club_fixtures_tab.dart';
 import 'package:rivals/features/club/widgets/club_news_tab.dart';
-import 'package:rivals/features/club/widgets/sliver_tab.dart';
+import 'package:rivals/features/club/widgets/club_wall_tab.dart';
 import 'package:rivals/shared/app_button.dart';
 
 class ClubDetails extends StatefulWidget {
@@ -17,9 +19,23 @@ class ClubDetails extends StatefulWidget {
   State<ClubDetails> createState() => _ClubDetailsState();
 }
 
-class _ClubDetailsState extends State<ClubDetails> {
+class _ClubDetailsState extends State<ClubDetails>
+    with SingleTickerProviderStateMixin {
   static const clubTabs = ['News', 'Wall', 'Fixtures', 'Top Fans'];
   int selectedTab = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: clubTabs.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   Widget clubStat(String value, String label) => Expanded(
     child: Column(
@@ -47,10 +63,12 @@ class _ClubDetailsState extends State<ClubDetails> {
   );
   @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
+
     return Scaffold(
       backgroundColor: context.bgColor,
-      body: CustomScrollView(
-        slivers: [
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             pinned: true,
             expandedHeight: 200,
@@ -87,38 +105,40 @@ class _ClubDetailsState extends State<ClubDetails> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  AppButton(label: 'Joined', onPressed: () {}),
+                  if (auth.clubId == widget.clubModel.shortName)
+                    AppButton2(label: 'Joined', onPressed: () {}),
                 ],
               ),
             ),
           ),
           SliverPersistentHeader(
             pinned: true,
-            delegate: TabsHeader(
-              tabs: clubTabs,
-              selected: selectedTab,
-              onTap: (i) => setState(() => selectedTab = i),
-            ),
-          ),
-          if (selectedTab == 0)
-            SliverToBoxAdapter(child: ClubNewsTab(club: widget.clubModel))
-          else if (selectedTab == 2)
-            SliverToBoxAdapter(child: ClubFixturesTab())
-          else
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(48),
-                child: Center(
-                  child: Text(
-                    '${clubTabs[selectedTab]} coming soon',
-                    style: context.tt.labelMedium,
-                  ),
+            delegate: _TabHeader(
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                indicatorColor: AppTheme.accent,
+                labelColor: context.cs.onSurface,
+                unselectedLabelColor: context.cs.onSurface.withOpacity(0.4),
+                dividerColor: Colors.transparent,
+                labelStyle: context.tt.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
+                tabs: clubTabs.map((t) => Tab(text: t)).toList(),
               ),
             ),
-
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          ),
         ],
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            SingleChildScrollView(child: ClubNewsTab(club: widget.clubModel)),
+            ClubWallTab(club: widget.clubModel),
+            ClubFixturesTab(),
+            ClubFixturesTab(),
+          ],
+        ),
       ),
     );
   }
@@ -264,4 +284,26 @@ class NewsItem {
     this.lead = false,
     this.image = false,
   });
+}
+
+class _TabHeader extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+  const _TabHeader(this.tabBar);
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return ColoredBox(color: context.bgColor, child: tabBar);
+  }
+
+  @override
+  bool shouldRebuild(covariant _TabHeader old) => false;
 }

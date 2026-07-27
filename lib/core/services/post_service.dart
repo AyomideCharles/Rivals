@@ -18,7 +18,6 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // posts by a specific club
   static Stream<List<PostModel>> getPostsByClub(String clubId) {
     return _db
         .collection('posts')
