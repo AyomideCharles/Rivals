@@ -14,6 +14,9 @@ import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/firebase_options.dart';
 
+final RouteObserver<ModalRoute<void>> routeObserver =
+    RouteObserver<ModalRoute<void>>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -45,6 +48,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(375, 812),
       builder: (context, child) {
         return MaterialApp(
+          navigatorObservers: [routeObserver],
           title: 'Rivals',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light.copyWith(
