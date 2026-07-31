@@ -9,6 +9,7 @@ import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/features/club/widgets/club_fixtures_tab.dart';
 import 'package:rivals/features/club/widgets/club_news_tab.dart';
 import 'package:rivals/features/club/widgets/club_wall_tab.dart';
+import 'package:rivals/features/club/widgets/top_fans.dart';
 import 'package:rivals/shared/app_button.dart';
 
 class ClubDetails extends StatefulWidget {
@@ -136,7 +137,7 @@ class _ClubDetailsState extends State<ClubDetails>
             SingleChildScrollView(child: ClubNewsTab(club: widget.clubModel)),
             ClubWallTab(club: widget.clubModel),
             ClubFixturesTab(),
-            ClubFixturesTab(),
+            TopFansTab(club: widget.clubModel),
           ],
         ),
       ),
