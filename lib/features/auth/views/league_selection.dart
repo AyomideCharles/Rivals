@@ -77,17 +77,17 @@ class _LeagueSelectionState extends State<LeagueSelection>
               SizedBox(height: 15),
               Text(
                 'First pick your league, then find your club and join the community.',
-                // style: context.tt.titleMedium,
+                style: context.tt.labelLarge,
               ),
               SizedBox(height: 30),
               Row(
                 children: [
-                  Text('Seclet your club'),
+                  Text('Seclet your club', style: context.tt.labelLarge),
                   SizedBox(width: 10),
                   Icon(Icons.navigate_next),
                 ],
               ),
-              SizedBox(height: 30),
+              SizedBox(height: 15),
               Expanded(
                 child: StreamBuilder<List<Map<String, dynamic>>>(
                   stream: ClubService.getLeagues(),

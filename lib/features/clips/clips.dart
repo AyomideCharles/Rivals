@@ -352,8 +352,8 @@ class _ClipPlayerState extends State<_ClipPlayer>
                       '@${widget.clip.displayName}',
                       style: const TextStyle(
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
                       ),
                     ),
                   ],

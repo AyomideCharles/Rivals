@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:rivals/core/constants/constants.dart';
-import 'package:rivals/core/constants/constants_example.dart' hide AppConstants;
 import 'package:rivals/core/models/clips_model.dart';
-import 'package:rivals/core/services/cloudinary_service.dart';
 
 class ClipsService {
   static final _db = FirebaseFirestore.instance;

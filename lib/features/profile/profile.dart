@@ -271,5 +271,5 @@ class TabHeader extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(covariant TabHeader old) => false;
+  bool shouldRebuild(covariant TabHeader old) => true;
 }
