@@ -257,6 +257,21 @@ class _Avatar extends StatelessWidget {
                 width: 45,
                 height: 45,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: 45,
+                    height: 45,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: borderColor ?? context.cs.outline,
+                        width: 1,
+                      ),
+                      color: context.cs.surface,
+                    ),
+                    child: const Icon(Iconsax.user),
+                  );
+                },
               ),
             ),
     );

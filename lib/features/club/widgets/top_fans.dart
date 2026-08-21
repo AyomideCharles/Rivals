@@ -42,23 +42,6 @@ class TopFansTab extends StatelessWidget {
 
         final fans = snapshot.data!;
 
-        // return ListView(
-        //   padding: const EdgeInsets.all(16),
-        //   children: [
-        //     // podium — top 3
-        //     if (fans.length >= 3) _Podium(fans: fans.take(3).toList()),
-
-        //     const SizedBox(height: 24),
-
-        //     // rest of the list
-        //     ...fans.skip(3).toList().asMap().entries.map((entry) {
-        //       final rank = entry.key + 4;
-        //       final fan = entry.value;
-        //       return _FanTile(fan: fan, rank: rank);
-        //     }),
-        //   ],
-        // );
-
         return ListView(
           padding: const EdgeInsets.all(16),
           children: [
@@ -153,6 +136,17 @@ class _PodiumItem extends StatelessWidget {
                       width: rank == 1 ? 60 : 48,
                       height: rank == 1 ? 60 : 48,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return CircleAvatar(
+                          radius: rank == 1 ? 30 : 24,
+                          child: Text(
+                            fan.displayName.isNotEmpty
+                                ? fan.displayName[0].toUpperCase()
+                                : '?',
+                            style: TextStyle(fontSize: rank == 1 ? 20 : 16),
+                          ),
+                        );
+                      },
                     ),
                   )
                 : CircleAvatar(
@@ -176,7 +170,7 @@ class _PodiumItem extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           '@${fan.displayName}',
-          style: context.tt.labelSmall,
+          style: context.tt.titleSmall,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
