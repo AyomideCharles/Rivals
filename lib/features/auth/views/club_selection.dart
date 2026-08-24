@@ -145,7 +145,7 @@ class _ClubSelectionState extends State<ClubSelection>
                         const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           mainAxisSpacing: 16,
-                          crossAxisSpacing: 16,
+                          crossAxisSpacing: 16, 
                         ),
                     itemCount: clubs.length,
                     itemBuilder: (context, index) {

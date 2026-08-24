@@ -11,4 +11,15 @@ Rivals is a football fan community app where supporters pick one club — locked
 
 
 
+# Tech Stack & tools
 
+- Framework - Flutter (Dart)
+- Auth - Firebase Authentication
+- Database - Cloud Firestore
+- Media - Cloudinary (images + video)
+- State Management - Provider
+- Video - video_player
+- Fonts - Google Fonts (Space Grotesk + Archivo + JetBrains Mono)
+- Icons - Iconsax
+- UI - flutter_screenutil
+- flutter_smart_dialog

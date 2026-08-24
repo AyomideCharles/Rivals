@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/banter/widgets/users_profile.dart';
+import 'package:rivals/features/home/widgets/users_profile.dart';
 import 'package:rivals/shared/app_bar.dart';
 
 enum FollowListType { followers, following }

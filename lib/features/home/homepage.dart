@@ -3,9 +3,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/banter/widgets/add_to_story.dart';
-import 'package:rivals/features/banter/widgets/post_view.dart';
-import 'package:rivals/features/banter/widgets/story_view.dart';
+import 'package:rivals/features/home/widgets/add_to_story.dart';
+import 'package:rivals/features/home/widgets/post_view.dart';
+import 'package:rivals/features/home/widgets/story_view.dart';
 import 'package:rivals/shared/app_bar.dart';
 
 class Homepage extends StatelessWidget {
@@ -19,16 +19,6 @@ class Homepage extends StatelessWidget {
         showLogo: true,
         actions: [
           Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              border: Border.all(color: context.cs.outline, width: 1),
-              color: context.cs.surface,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: const Icon(Iconsax.notification),
-          ),
-          const SizedBox(width: 15),
-          Container(
             margin: const EdgeInsets.only(right: 20),
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
@@ -36,7 +26,7 @@ class Homepage extends StatelessWidget {
               color: context.cs.surface,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Icon(Iconsax.search_favorite_1),
+            child: const Icon(Iconsax.notification),
           ),
         ],
       ),

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/features/home/widgets/post_view.dart';
 import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_follow_button.dart';
-import 'package:rivals/shared/app_video_player.dart';
 
 class UsersProfile extends StatefulWidget {
   final String userId;
@@ -58,7 +57,7 @@ class _UsersProfileState extends State<UsersProfile>
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: .start,
                   children: [
                     Row(
                       children: [
@@ -195,56 +194,7 @@ class _UsersProfileState extends State<UsersProfile>
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final post = posts[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (post.content.isNotEmpty)
-                            Text(post.content, style: context.tt.bodyMedium),
-                          if (post.hasMedia) ...[
-                            const SizedBox(height: 10),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: post.isVideo
-                                  ? AppVideoPlayer(url: post.mediaUrl)
-                                  : Image.network(
-                                      post.mediaUrl,
-                                      width: double.infinity,
-                                      height: 200,
-                                      fit: BoxFit.cover,
-                                    ),
-                            ),
-                          ],
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              Icon(
-                                Iconsax.heart,
-                                size: 16,
-                                color: context.cs.onSurface,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${post.likes}',
-                                style: context.tt.bodySmall,
-                              ),
-                              const SizedBox(width: 16),
-                              Icon(
-                                Iconsax.message,
-                                size: 16,
-                                color: context.cs.onSurface,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${post.comments}',
-                                style: context.tt.bodySmall,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
+                    return PostsView(post: post);
                   },
                 );
               },

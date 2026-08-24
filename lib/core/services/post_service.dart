@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rivals/core/models/comments_model.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/cloudinary_service.dart';
 
@@ -17,7 +18,6 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // posts by a specific club
   static Stream<List<PostModel>> getPostsByClub(String clubId) {
     return _db
         .collection('posts')
@@ -73,11 +73,23 @@ class PostService {
         .map((snap) => snap.docs.map(PostModel.fromDoc).toList());
   }
 
-  // like a post
-  static Future<void> likePost(String postId) async {
-    await _db.collection('posts').doc(postId).update({
-      'likes': FieldValue.increment(1),
-    });
+  // like post and unlike a post
+  static Future<void> toggleLike(String postId, String userId) async {
+    final doc = _db.collection('posts').doc(postId);
+    final snapshot = await doc.get();
+    final likedBy = List<String>.from(snapshot.data()?['likedBy'] ?? []);
+
+    if (likedBy.contains(userId)) {
+      await doc.update({
+        'likes': FieldValue.increment(-1),
+        'likedBy': FieldValue.arrayRemove([userId]),
+      });
+    } else {
+      await doc.update({
+        'likes': FieldValue.increment(1),
+        'likedBy': FieldValue.arrayUnion([userId]),
+      });
+    }
   }
 
   // delete a post
@@ -101,5 +113,72 @@ class PostService {
       maxDuration: const Duration(seconds: 30),
     );
     return picked != null ? File(picked.path) : null;
+  }
+
+  // get comments for a post
+  static Stream<List<CommentModel>> getComments(String postId) {
+    return _db
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .orderBy('createdAt', descending: false)
+        .snapshots()
+        .map((snap) => snap.docs.map(CommentModel.fromDoc).toList());
+  }
+
+  // add a comment
+  static Future<void> addComment({
+    required String postId,
+    required String userId,
+    required String displayName,
+    required String profileImageUrl,
+    required String clubName,
+    required String content,
+  }) async {
+    final batch = _db.batch();
+
+    // add comment to subcollection
+    final commentRef = _db
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc();
+
+    batch.set(commentRef, {
+      'userId': userId,
+      'displayName': displayName,
+      'profileImageUrl': profileImageUrl,
+      'clubName': clubName,
+      'content': content,
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+
+    // increment comment count on post
+    final postRef = _db.collection('posts').doc(postId);
+    batch.update(postRef, {'comments': FieldValue.increment(1)});
+
+    await batch.commit();
+  }
+
+  // delete a comment
+  static Future<void> deleteComment({
+    required String postId,
+    required String commentId,
+  }) async {
+    final batch = _db.batch();
+
+    final commentRef = _db
+        .collection('posts')
+        .doc(postId)
+        .collection('comments')
+        .doc(commentId);
+
+    batch.delete(commentRef);
+
+    // decrement comment count
+    final postRef = _db.collection('posts').doc(postId);
+    batch.update(postRef, {'comments': FieldValue.increment(-1)});
+
+    await batch.commit();
   }
 }

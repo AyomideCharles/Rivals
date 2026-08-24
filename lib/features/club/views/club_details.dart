@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/core/models/club_model.dart';
+import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/features/auth/widgets/splash_screen.dart';
 import 'package:rivals/features/club/widgets/club_fixtures_tab.dart';
 import 'package:rivals/features/club/widgets/club_news_tab.dart';
-import 'package:rivals/features/club/widgets/sliver_tab.dart';
+import 'package:rivals/features/club/widgets/club_wall_tab.dart';
+import 'package:rivals/features/club/widgets/top_fans.dart';
 import 'package:rivals/shared/app_button.dart';
 
 class ClubDetails extends StatefulWidget {
@@ -17,9 +20,23 @@ class ClubDetails extends StatefulWidget {
   State<ClubDetails> createState() => _ClubDetailsState();
 }
 
-class _ClubDetailsState extends State<ClubDetails> {
+class _ClubDetailsState extends State<ClubDetails>
+    with SingleTickerProviderStateMixin {
   static const clubTabs = ['News', 'Wall', 'Fixtures', 'Top Fans'];
   int selectedTab = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: clubTabs.length, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   Widget clubStat(String value, String label) => Expanded(
     child: Column(
@@ -47,26 +64,19 @@ class _ClubDetailsState extends State<ClubDetails> {
   );
   @override
   Widget build(BuildContext context) {
+    final auth = context.watch<AuthProvider>();
+
     return Scaffold(
       backgroundColor: context.bgColor,
-      body: CustomScrollView(
-        slivers: [
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
           SliverAppBar(
             pinned: true,
             expandedHeight: 200,
-            // backgroundColor: widget.clubModel.color,
             backgroundColor: widget.clubModel.color,
             foregroundColor: widget.clubModel.ink,
             elevation: 0,
             leading: const BackButton(),
-            title: Text(
-              widget.clubModel.name,
-              style: GoogleFonts.archivo(
-                fontWeight: FontWeight.w800,
-                fontSize: 18,
-                color: widget.clubModel.ink,
-              ),
-            ),
             flexibleSpace: FlexibleSpaceBar(
               background: Banner(clubModel: widget.clubModel),
               collapseMode: CollapseMode.parallax,
@@ -96,38 +106,40 @@ class _ClubDetailsState extends State<ClubDetails> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  AppButton(label: 'Joined', onPressed: () {}),
+                  if (auth.clubId == widget.clubModel.shortName)
+                    AppButton2(label: 'Joined', onPressed: () {}),
                 ],
               ),
             ),
           ),
           SliverPersistentHeader(
             pinned: true,
-            delegate: TabsHeader(
-              tabs: clubTabs,
-              selected: selectedTab,
-              onTap: (i) => setState(() => selectedTab = i),
-            ),
-          ),
-          if (selectedTab == 0)
-            SliverToBoxAdapter(child: ClubNewsTab(club: widget.clubModel))
-          else if (selectedTab == 2)
-            SliverToBoxAdapter(child: ClubFixturesTab())
-          else
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(48),
-                child: Center(
-                  child: Text(
-                    '${clubTabs[selectedTab]} coming soon',
-                    style: context.tt.labelMedium,
-                  ),
+            delegate: _TabHeader(
+              TabBar(
+                controller: _tabController,
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                indicatorColor: AppTheme.accent,
+                labelColor: context.cs.onSurface,
+                unselectedLabelColor: context.cs.onSurface.withOpacity(0.4),
+                dividerColor: Colors.transparent,
+                labelStyle: context.tt.labelMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
                 ),
+                tabs: clubTabs.map((t) => Tab(text: t)).toList(),
               ),
             ),
-
-          const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          ),
         ],
+        body: TabBarView(
+          controller: _tabController,
+          children: [
+            SingleChildScrollView(child: ClubNewsTab(club: widget.clubModel)),
+            ClubWallTab(club: widget.clubModel),
+            ClubFixturesTab(),
+            TopFansTab(club: widget.clubModel),
+          ],
+        ),
       ),
     );
   }
@@ -148,7 +160,6 @@ class Banner extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                // club.color,
                 clubModel.color,
                 Color.alphaBlend(
                   clubModel.color.withOpacity(0.55),
@@ -187,44 +198,51 @@ class Banner extends StatelessWidget {
           bottom: 18,
           child: Row(
             children: [
-              clubModel.badgeUrl.isNotEmpty
-                  ? Image.network(
-                      clubModel.badgeUrl,
-                      width: 60,
-                      height: 60,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) {
-                        return ShieldCrest(
-                          size: 60,
-                          color: clubModel.color,
-                          ink: clubModel.ink,
-                          label: clubModel.shortName,
-                        );
-                      },
-                    )
-                  : ShieldCrest(
-                      size: 60,
-                      color: clubModel.color,
-                      ink: clubModel.ink,
-                      label: clubModel.shortName,
-                    ),
-
+              Hero(
+                tag: 'club-badge-${clubModel.shortName}',
+                child: clubModel.badgeUrl.isNotEmpty
+                    ? Image.network(
+                        clubModel.badgeUrl,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          return ShieldCrest(
+                            size: 60,
+                            color: clubModel.color,
+                            ink: clubModel.ink,
+                            label: clubModel.shortName,
+                          );
+                        },
+                      )
+                    : ShieldCrest(
+                        size: 60,
+                        color: clubModel.color,
+                        ink: clubModel.ink,
+                        label: clubModel.shortName,
+                      ),
+              ),
               const SizedBox(width: 14),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    clubModel.name,
-                    style: GoogleFonts.archivo(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 24,
-                      color: clubModel.ink,
-                      letterSpacing: -0.5,
+                  Hero(
+                    tag: 'club-name-${clubModel.shortName}',
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Text(
+                        clubModel.name,
+                        style: GoogleFonts.archivo(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 24,
+                          color: clubModel.ink,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
                     ),
                   ),
                   Text(
-                    // 'The ${clubModel.nickname}',
                     clubModel.nickname,
                     style: TextStyle(
                       color: clubModel.ink.withOpacity(0.85),
@@ -267,4 +285,26 @@ class NewsItem {
     this.lead = false,
     this.image = false,
   });
+}
+
+class _TabHeader extends SliverPersistentHeaderDelegate {
+  final TabBar tabBar;
+  const _TabHeader(this.tabBar);
+
+  @override
+  double get minExtent => tabBar.preferredSize.height;
+  @override
+  double get maxExtent => tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return ColoredBox(color: context.bgColor, child: tabBar);
+  }
+
+  @override
+  bool shouldRebuild(covariant _TabHeader old) => false;
 }

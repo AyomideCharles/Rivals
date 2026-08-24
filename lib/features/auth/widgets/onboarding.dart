@@ -44,6 +44,7 @@ class Onboarding extends StatelessWidget {
               ),
               SizedBox(height: 22),
               CardContainer(),
+              // CarouselCard(),
               SizedBox(height: 22),
               Text('Pick a side.', style: context.tt.displayLarge),
               RichText(
@@ -98,6 +99,28 @@ class Onboarding extends StatelessWidget {
     );
   }
 }
+
+// class CarouselCard extends StatelessWidget {
+//   const CarouselCard({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // return List(
+//     //   child: Container(
+//     //     width: 150,
+//     //     height: 150,
+//     //     decoration: BoxDecoration(border: Border.all()),
+//     //   ),
+//     // );
+//     return List.generate(10, ((index) {
+//       return Container(
+//         width: 150,
+//         height: 150,
+//         decoration: BoxDecoration(border: Border.all()),
+//       );
+//     }));
+//   }
+// }
 
 class CardContainer extends StatelessWidget {
   final double height;

@@ -49,10 +49,8 @@ google-services.json
 GoogleService-Info.plist
 lib/firebase_options.dart
 
-
 # Secrets
 lib/core/constants.dart
-
 
 # iOS
 ios/Pods/
@@ -66,3 +64,6 @@ android/local.properties
 android/key.properties
 *.keystore
 *.jks
+
+# FVM Version Cache
+.fvm/

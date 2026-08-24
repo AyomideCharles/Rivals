@@ -106,30 +106,41 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
                   ),
                 ),
                 contentPadding: const EdgeInsets.only(left: 20, right: 20),
-                leading: myClub.hasBadge
-                    ? Image.network(
-                        myClub.badgeUrl,
-                        width: 60,
-                        height: 60,
-                        fit: BoxFit.contain,
-                        errorBuilder: (_, __, ___) => CircleAvatar(
+                leading: Hero(
+                  tag: 'club-badge-${myClub.shortName}',
+                  child: myClub.hasBadge
+                      ? Image.network(
+                          myClub.badgeUrl,
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) => CircleAvatar(
+                            radius: 30,
+                            child: Text(
+                              myClub.shortName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        )
+                      : CircleAvatar(
                           radius: 30,
                           child: Text(
                             myClub.shortName,
                             style: const TextStyle(fontWeight: FontWeight.w700),
                           ),
                         ),
-                      )
-                    : CircleAvatar(
-                        radius: 30,
-                        child: Text(
-                          myClub.shortName,
-                          style: const TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                      ),
+                ),
                 title: Row(
                   children: [
-                    Text(myClub.name, style: context.tt.titleMedium),
+                    Hero(
+                      tag: 'club-name-${myClub.shortName}',
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Text(myClub.name, style: context.tt.titleMedium),
+                      ),
+                    ),
                     const SizedBox(width: 10),
                     Container(
                       padding: const EdgeInsets.symmetric(
@@ -216,13 +227,26 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
                             right: 20,
                             bottom: 8,
                           ),
-                          leading: club.hasBadge
-                              ? Image.network(
-                                  club.badgeUrl,
-                                  width: 40,
-                                  height: 40,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (_, __, ___) => CircleAvatar(
+                          leading: Hero(
+                            tag: 'club-badge-${club.shortName}',
+                            child: club.hasBadge
+                                ? Image.network(
+                                    club.badgeUrl,
+                                    width: 40,
+                                    height: 40,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, __, ___) => CircleAvatar(
+                                      radius: 20,
+                                      child: Text(
+                                        club.shortName,
+                                        style: const TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : CircleAvatar(
                                     radius: 20,
                                     child: Text(
                                       club.shortName,
@@ -232,18 +256,14 @@ class _MyClubState extends State<MyClub> with SingleTickerProviderStateMixin {
                                       ),
                                     ),
                                   ),
-                                )
-                              : CircleAvatar(
-                                  radius: 20,
-                                  child: Text(
-                                    club.shortName,
-                                    style: const TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                          title: Text(club.name),
+                          ),
+                          title: Hero(
+                            tag: 'club-name-${club.shortName}',
+                            child: Material(
+                              type: MaterialType.transparency,
+                              child: Text(club.name),
+                            ),
+                          ),
                           subtitle: StreamBuilder<DocumentSnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection('clubStats')

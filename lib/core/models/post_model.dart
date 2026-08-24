@@ -8,10 +8,12 @@ class PostModel {
   final String clubId;
   final String clubName;
   final String clubColor;
+  final String clubLeague;
   final String content;
   final String mediaUrl;
   final bool isVideo;
   final int likes;
+  final List<String> likedBy;
   final int comments;
   final DateTime createdAt;
 
@@ -23,10 +25,12 @@ class PostModel {
     required this.clubId,
     required this.clubName,
     required this.clubColor,
+    this.clubLeague = '',
     required this.content,
     this.mediaUrl = '',
     this.isVideo = false,
     this.likes = 0,
+    this.likedBy = const [],
     this.comments = 0,
     required this.createdAt,
   });
@@ -43,10 +47,12 @@ class PostModel {
       clubId: data['clubId'] ?? '',
       clubName: data['clubName'] ?? '',
       clubColor: data['clubColor'] ?? '',
+      clubLeague: data['clubLeague'] ?? '',
       content: data['content'] ?? '',
       mediaUrl: data['mediaUrl'] ?? '',
       isVideo: data['isVideo'] ?? false,
       likes: data['likes'] ?? 0,
+      likedBy: List<String>.from(data['likedBy'] ?? []),
       comments: data['comments'] ?? 0,
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
     );
@@ -55,13 +61,16 @@ class PostModel {
   Map<String, dynamic> toMap() => {
     'userId': userId,
     'displayName': displayName,
+    'profileImageUrl': profileImageUrl,
     'clubId': clubId,
     'clubName': clubName,
     'clubColor': clubColor,
+    'clubLeague': clubLeague,
     'content': content,
     'mediaUrl': mediaUrl,
     'isVideo': isVideo,
     'likes': likes,
+    'likedBy': likedBy,
     'comments': comments,
     'createdAt': FieldValue.serverTimestamp(),
   };
