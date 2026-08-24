@@ -215,10 +215,8 @@ class _SplashScreenState extends State<SplashScreen>
                                   ),
                                   child: ShieldCrest(
                                     size: 92,
-                                    color: AppTheme
-                                        .accent, // was RivalsColors.accent
-                                    ink: AppTheme
-                                        .accentInk, // was RivalsColors.accentInk
+                                    color: AppTheme.accent,
+                                    ink: AppTheme.accentInk,
                                     label: 'RV',
                                   ),
                                 ),

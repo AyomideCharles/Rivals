@@ -142,4 +142,14 @@ class AuthProvider extends ChangeNotifier {
     _userData?['profileImageUrl'] = url;
     notifyListeners();
   }
+
+  Future<bool> forgotPassword(String email) async {
+    try {
+      await auth.sendPasswordResetEmail(email: email.trim());
+      return true;
+    } on FirebaseAuthException catch (e) {
+      SmartDialog.showToast(e.message ?? e.code);
+      return false;
+    }
+  }
 }
