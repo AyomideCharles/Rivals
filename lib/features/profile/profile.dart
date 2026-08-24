@@ -8,6 +8,7 @@ import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/utils/media_picker.dart';
 import 'package:rivals/features/auth/widgets/onboarding.dart';
 import 'package:rivals/core/services/auth_service.dart';
+import 'package:rivals/features/profile/change_password.dart';
 import 'package:rivals/features/profile/widgets/clips_tab.dart';
 import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/features/profile/widgets/post_tab.dart';
@@ -198,6 +199,18 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                         value: context.watch<ThemeProvider>().isDark,
                         onChanged: (_) =>
                             context.read<ThemeProvider>().toggle(),
+                      ),
+                      ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: const Icon(Iconsax.lock),
+                        title: const Text('Change Password'),
+                        trailing: const Icon(Icons.navigate_next),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const ChangePassword(),
+                          ),
+                        ),
                       ),
                     ],
                   ),

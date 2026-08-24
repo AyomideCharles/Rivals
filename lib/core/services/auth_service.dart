@@ -152,4 +152,25 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    try {
+      // re-authenticate user first
+      final credential = EmailAuthProvider.credential(
+        email: _user!.email!,
+        password: currentPassword,
+      );
+      await _user!.reauthenticateWithCredential(credential);
+
+      // update password
+      await _user!.updatePassword(newPassword);
+      return true;
+    } on FirebaseAuthException catch (e) {
+      SmartDialog.showToast(e.message ?? e.code);
+      return false;
+    }
+  }
 }
