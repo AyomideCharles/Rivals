@@ -13,7 +13,6 @@ import 'package:rivals/features/profile/widgets/clips_tab.dart';
 import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/features/profile/widgets/post_tab.dart';
 import 'package:rivals/features/profile/widgets/replies_tab.dart';
-import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_button.dart';
 
 class Profile extends StatefulWidget {
