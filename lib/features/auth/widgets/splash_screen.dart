@@ -303,10 +303,6 @@ class _SplashScreenState extends State<SplashScreen>
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.8,
-                            color: AppTheme.navy.withOpacity(
-                              // was RivalsColors.textFaint
-                              tag.value.clamp(0, 1),
-                            ),
                           ),
                         ),
                       ],
@@ -320,9 +316,7 @@ class _SplashScreenState extends State<SplashScreen>
                       width: 132,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: AppTheme.navy.withOpacity(
-                          0.3,
-                        ), // was RivalsColors.border
+                        color: AppTheme.navy.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(999),
                       ),
                       child: Align(
@@ -331,7 +325,7 @@ class _SplashScreenState extends State<SplashScreen>
                           widthFactor: load.value,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: AppTheme.accent, // was RivalsColors.accent
+                              color: AppTheme.accent,
                               borderRadius: BorderRadius.circular(999),
                             ),
                           ),
@@ -349,9 +343,6 @@ class _SplashScreenState extends State<SplashScreen>
                         style: GoogleFonts.jetBrainsMono(
                           fontSize: 11,
                           letterSpacing: 1.4,
-                          color: Colors.white.withOpacity(
-                            0.4,
-                          ), // was RivalsColors.textFaint
                         ),
                       ),
                     ),
@@ -366,7 +357,6 @@ class _SplashScreenState extends State<SplashScreen>
   }
 }
 
-// ── Pitch grid ────────────────────────────────────────────────────────────────
 class _PitchGrid extends StatelessWidget {
   final double opacity;
   const _PitchGrid({required this.opacity});
@@ -404,7 +394,6 @@ class _GridPainter extends CustomPainter {
   bool shouldRepaint(_) => false;
 }
 
-// ── Beam ──────────────────────────────────────────────────────────────────────
 class _Beam extends StatelessWidget {
   final double t;
   const _Beam({required this.t});
@@ -446,7 +435,6 @@ class _Beam extends StatelessWidget {
   }
 }
 
-// ── Wordmark ──────────────────────────────────────────────────────────────────
 class _Wordmark extends StatelessWidget {
   final AnimationController progress;
   const _Wordmark({required this.progress});
@@ -458,7 +446,7 @@ class _Wordmark extends StatelessWidget {
       fontWeight: FontWeight.w900,
       fontSize: 52,
       height: 1.0,
-      color: Colors.white, // was RivalsColors.text
+      color: Colors.white,
     );
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -517,7 +505,6 @@ class _Letter extends StatelessWidget {
   }
 }
 
-// ── Shield crest ──────────────────────────────────────────────────────────────
 class ShieldCrest extends StatelessWidget {
   final double size;
   final Color color;

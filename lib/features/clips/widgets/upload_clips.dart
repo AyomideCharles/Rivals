@@ -34,7 +34,7 @@ class _UploadClipState extends State<UploadClip> {
     final picker = ImagePicker();
     final picked = await picker.pickVideo(
       source: ImageSource.gallery,
-      maxDuration: const Duration(minutes: 3), // 👈 max 3 mins
+      maxDuration: const Duration(minutes: 3),
     );
 
     if (picked != null) {
