@@ -67,7 +67,7 @@ class Homepage extends StatelessWidget {
                           final hasStory = snapshot.data ?? false;
 
                           return StoryView(
-                            isAddStory: !hasStory, 
+                            isAddStory: !hasStory,
                             profileImageUrl: auth.profileImageUrl,
                             hasUnviewed: false,
                             onTap: () {
