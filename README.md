@@ -2,24 +2,30 @@
 
 Rivals is a football fan community app where supporters pick one club — locked forever — and join a global community of fans to post, banter, and connect across 6 major leagues.
 
+## Screenshots
 
-# Screenshots
-<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 51" src="https://github.com/user-attachments/assets/94a3eb89-d7c4-48cc-9361-e02acf04b645" />
-<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 27" src="https://github.com/user-attachments/assets/6c40e3b6-4d03-4197-bb10-03970f16ccc3" />
-<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 38" src="https://github.com/user-attachments/assets/042a8c9d-6674-4cff-820b-24fbd31a3c6c" />
-<img width="350" height="800" alt="Simulator Screenshot - iPhone 17 Pro - 2026-07-18 at 20 00 35" src="https://github.com/user-attachments/assets/032f66a2-5d14-4379-a8d1-5ef9dca8dd25" />
+| Light | Dark |
+|---|---|
+| <img width="300" src="https://github.com/user-attachments/assets/7ee1fad9-0f3f-4f45-b73c-ba4025b359b0" /> | <img width="300" src="https://github.com/user-attachments/assets/f223f77d-d762-462e-ada2-3ba8be299d9b" /> |
+| <img width="300" src="https://github.com/user-attachments/assets/48a2da4a-df21-4f45-b0c0-77e0c474d4e3" />  | <img width="300"  src="https://github.com/user-attachments/assets/6b212a28-99d4-4bb9-980d-96dceb594f4d" /> |
+| <img width="300" src="https://github.com/user-attachments/assets/0a39d0c4-0eac-47f4-bd8c-196905af6612" />  | <img width="300" src="https://github.com/user-attachments/assets/dfef3698-db11-4240-bc98-c8668c8c1290" /> |
+
+
+## Tech Stack & Tools
+
+| Layer | Technology |
+|---|---|
+| Framework | Flutter (Dart) |
+| Auth | Firebase Authentication |
+| Database | Cloud Firestore |
+| Media | Cloudinary (images + video) |
+| State Management | Provider |
+| Video | video_player |
+| Fonts | Google Fonts (Space Grotesk + Archivo + JetBrains Mono) |
+| Icons | Iconsax |
+| UI | flutter_screenutil, flutter_smart_dialog |
 
 
 
-# Tech Stack & tools
 
-- Framework - Flutter (Dart)
-- Auth - Firebase Authentication
-- Database - Cloud Firestore
-- Media - Cloudinary (images + video)
-- State Management - Provider
-- Video - video_player
-- Fonts - Google Fonts (Space Grotesk + Archivo + JetBrains Mono)
-- Icons - Iconsax
-- UI - flutter_screenutil
-- flutter_smart_dialog
+
