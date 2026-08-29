@@ -1,165 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:iconsax/iconsax.dart';
-// import 'package:provider/provider.dart';
-// import 'package:rivals/core/models/post_model.dart';
-// import 'package:rivals/core/models/story_model.dart';
-// import 'package:rivals/core/services/auth_service.dart';
-// import 'package:rivals/core/services/post_service.dart';
-// import 'package:rivals/core/services/story_service.dart';
-// import 'package:rivals/core/theme/app_theme.dart';
-// import 'package:rivals/features/home/widgets/add_to_story.dart';
-// import 'package:rivals/features/home/widgets/post_view.dart';
-// import 'package:rivals/features/home/widgets/story_view.dart';
-// import 'package:rivals/features/home/widgets/story_viewer.dart';
-// import 'package:rivals/shared/app_bar.dart';
-
-// class Homepage extends StatelessWidget {
-//   const Homepage({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final auth = context.watch<AuthProvider>();
-
-//     return Scaffold(
-//       appBar: CustomAppBar(
-//         backButton: false,
-//         showLogo: true,
-//         actions: [
-//           Container(
-//             margin: const EdgeInsets.only(right: 20),
-//             padding: const EdgeInsets.all(8),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: context.cs.outline, width: 1),
-//               color: context.cs.surface,
-//               borderRadius: BorderRadius.circular(8),
-//             ),
-//             child: const Icon(Iconsax.notification),
-//           ),
-//         ],
-//       ),
-//       body: CustomScrollView(
-//         slivers: [
-//           const SliverToBoxAdapter(child: Divider(height: 5)),
-//           SliverToBoxAdapter(
-//             child: StreamBuilder<Map<String, List<StoryModel>>>(
-//               stream: StoryService.getStories(),
-//               builder: (context, snapshot) {
-//                 final grouped = snapshot.data ?? {};
-//                 final userIds = grouped.keys.toList();
-
-//                 return SingleChildScrollView(
-//                   scrollDirection: Axis.horizontal,
-//                   child: Row(
-//                     children: [
-//                       // add story button
-//                       // StoryView(
-//                       //   isAddStory: true,
-//                       //   profileImageUrl: auth.profileImageUrl,
-//                       //   onTap: () => Navigator.push(
-//                       //     context,
-//                       //     MaterialPageRoute(builder: (_) => const AddToStory()),
-//                       //   ),
-//                       // ),
-//                       // In Homepage story bar
-//                       StreamBuilder<bool>(
-//                         stream: StoryService.hasActiveStory(auth.user!.uid),
-//                         builder: (context, snapshot) {
-//                           final hasStory = snapshot.data ?? false;
-
-//                           return StoryView(
-//                             isAddStory: !hasStory,
-//                             profileImageUrl: auth.profileImageUrl,
-//                             hasUnviewed: false,
-//                             onTap: () {
-//                               if (hasStory) {
-//                                 // view your own story
-//                                 Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                     builder: (_) => StoryViewer(
-//                                       stories: grouped[auth.user!.uid] ?? [],
-//                                       currentUserId: auth.user!.uid,
-//                                     ),
-//                                   ),
-//                                 );
-//                               } else {
-//                                 // add new story
-//                                 Navigator.push(
-//                                   context,
-//                                   MaterialPageRoute(
-//                                     builder: (_) => const AddToStory(),
-//                                   ),
-//                                 );
-//                               }
-//                             },
-//                           );
-//                         },
-//                       ),
-
-//                       // other users stories
-//                       ...userIds.where((id) => id != auth.user?.uid).map((
-//                         userId,
-//                       ) {
-//                         final stories = grouped[userId] ?? [];
-//                         if (stories.isEmpty) return const SizedBox.shrink();
-
-//                         final firstStory = stories.first;
-//                         final currentUid = auth.user?.uid ?? '';
-//                         final hasUnviewed = stories.any(
-//                           (s) => !s.viewedBy.contains(currentUid),
-//                         );
-
-//                         return StoryView(
-//                           profileImageUrl: firstStory.profileImageUrl,
-//                           displayName: firstStory.displayName,
-//                           stories: stories,
-//                           hasUnviewed: hasUnviewed,
-//                           onTap: () => Navigator.push(
-//                             context,
-//                             MaterialPageRoute(
-//                               builder: (_) => StoryViewer(
-//                                 stories: stories,
-//                                 currentUserId: auth.user!.uid,
-//                               ),
-//                             ),
-//                           ),
-//                         );
-//                       }),
-//                     ],
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-
-//           const SliverToBoxAdapter(child: Divider(height: 5)),
-//           StreamBuilder<List<PostModel>>(
-//             stream: PostService.getAllPosts(),
-//             builder: (context, snapshot) {
-//               if (!snapshot.hasData) {
-//                 return const SliverFillRemaining(
-//                   child: Center(child: CircularProgressIndicator()),
-//                 );
-//               }
-//               final posts = snapshot.data!;
-//               if (posts.isEmpty) {
-//                 return const SliverFillRemaining(
-//                   child: Center(child: Text('No posts yet. Be the first!')),
-//                 );
-//               }
-//               return SliverList.separated(
-//                 itemCount: posts.length,
-//                 separatorBuilder: (_, __) => const Divider(height: 1),
-//                 itemBuilder: (context, index) => PostsView(post: posts[index]),
-//               );
-//             },
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
@@ -178,8 +16,6 @@ import 'package:rivals/shared/app_bar.dart';
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
-  static const double _storyBarHeight = 106;
-
   @override
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
@@ -193,148 +29,199 @@ class Homepage extends StatelessWidget {
           const SizedBox(width: 4),
         ],
       ),
-      body: RefreshIndicator(
-        color: AppTheme.accent,
-        onRefresh: () async {
-          // Feed data is stream-driven and already live; this just gives
-          // the pull gesture a moment of visual feedback.
-          await Future.delayed(const Duration(milliseconds: 400));
-        },
-        child: CustomScrollView(
-          physics: const AlwaysScrollableScrollPhysics(
-            parent: BouncingScrollPhysics(),
-          ),
-          slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: _storyBarHeight,
-                child: StreamBuilder<Map<String, List<StoryModel>>>(
-                  stream: StoryService.getStories(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const _StoryBarSkeleton();
-                    }
+      body: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
+        slivers: [
+          SliverToBoxAdapter(
+            child: SizedBox(
+              child: StreamBuilder<Map<String, List<StoryModel>>>(
+                stream: StoryService.getStories(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const _StoryBarSkeleton();
+                  }
 
-                    final grouped = snapshot.data!;
-                    final otherUserIds = grouped.keys
-                        .where((id) => id != auth.user?.uid)
-                        .toList();
+                  final grouped = snapshot.data!;
+                  final otherUserIds = grouped.keys
+                      .where((id) => id != auth.user?.uid)
+                      .toList();
 
-                    return ListView(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 6),
-                      children: [
-                        StreamBuilder<bool>(
-                          stream: StoryService.hasActiveStory(auth.user!.uid),
-                          builder: (context, hasStorySnap) {
-                            final hasStory = hasStorySnap.data ?? false;
-
-                            return StoryView(
-                              isAddStory: !hasStory,
-                              profileImageUrl: auth.profileImageUrl,
-                              hasUnviewed: false,
-                              onTap: () {
-                                if (hasStory) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => StoryViewer(
-                                        stories: grouped[auth.user!.uid] ?? [],
-                                        currentUserId: auth.user!.uid,
-                                      ),
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 16, 16, 10),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Stories',
+                              style: Theme.of(context).textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: context.cs.onSurfaceVariant,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.4,
+                                  ),
+                            ),
+                            const Spacer(),
+                            TextButton(
+                              onPressed: () {},
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: Text(
+                                'See all',
+                                style: Theme.of(context).textTheme.labelSmall
+                                    ?.copyWith(
+                                      color: context.cs.primary,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                  );
-                                } else {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const AddToStory(),
-                                    ),
-                                  );
-                                }
-                              },
-                            );
-                          },
-                        ),
-
-                        ...otherUserIds.map((userId) {
-                          final stories = grouped[userId] ?? [];
-                          if (stories.isEmpty) return const SizedBox.shrink();
-
-                          final firstStory = stories.first;
-                          final currentUid = auth.user?.uid ?? '';
-                          final hasUnviewed = stories.any(
-                            (s) => !s.viewedBy.contains(currentUid),
-                          );
-
-                          return StoryView(
-                            profileImageUrl: firstStory.profileImageUrl,
-                            displayName: firstStory.displayName,
-                            stories: stories,
-                            hasUnviewed: hasUnviewed,
-                            onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => StoryViewer(
-                                  stories: stories,
-                                  currentUserId: auth.user!.uid,
-                                ),
                               ),
                             ),
-                          );
-                        }),
-                      ],
-                    );
-                  },
-                ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 96,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          children: [
+                            StreamBuilder<bool>(
+                              stream: StoryService.hasActiveStory(
+                                auth.user!.uid,
+                              ),
+                              builder: (context, hasStorySnap) {
+                                final hasStory = hasStorySnap.data ?? false;
+
+                                return StoryView(
+                                  isAddStory: !hasStory,
+                                  profileImageUrl: auth.profileImageUrl,
+                                  hasUnviewed: false,
+                                  onTap: () {
+                                    if (hasStory) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => StoryViewer(
+                                            stories:
+                                                grouped[auth.user!.uid] ?? [],
+                                            currentUserId: auth.user!.uid,
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (_) => const AddToStory(),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                );
+                              },
+                            ),
+                            ...otherUserIds.map((userId) {
+                              final stories = grouped[userId] ?? [];
+                              if (stories.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+                              final firstStory = stories.first;
+                              final currentUid = auth.user?.uid ?? '';
+                              final hasUnviewed = stories.any(
+                                (s) => !s.viewedBy.contains(currentUid),
+                              );
+                              return StoryView(
+                                profileImageUrl: firstStory.profileImageUrl,
+                                displayName: firstStory.displayName,
+                                stories: stories,
+                                hasUnviewed: hasUnviewed,
+                                onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => StoryViewer(
+                                      stories: stories,
+                                      currentUserId: auth.user!.uid,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
+          ),
 
-            const SliverToBoxAdapter(child: Divider(height: 1)),
-
-            StreamBuilder<List<PostModel>>(
-              stream: PostService.getAllPosts(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: _FeedMessage(
-                      icon: Icons.error_outline,
-                      title: 'Something went wrong',
-                      subtitle: 'Pull down to try again.',
+          const SliverToBoxAdapter(child: Divider(height: 1)),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              child: Row(
+                children: [
+                  Text(
+                    'Feed',
+                    style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: context.cs.onSurfaceVariant,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.4,
                     ),
-                  );
-                }
+                  ),
+                  const Spacer(),
+                  Chip(label: Text('For you')),
+                  const SizedBox(width: 8),
+                  Chip(label: Text('Following')),
+                ],
+              ),
+            ),
+          ),
 
-                if (!snapshot.hasData) {
-                  return const _PostsSkeletonList();
-                }
-
-                final posts = snapshot.data!;
-                if (posts.isEmpty) {
-                  return const SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: _FeedMessage(
-                      icon: Icons.photo_library_outlined,
-                      title: 'No posts yet',
-                      subtitle: 'Be the first to share something.',
-                    ),
-                  );
-                }
-
-                return SliverPadding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 24),
-                  sliver: SliverList.separated(
-                    itemCount: posts.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 2),
-                    itemBuilder: (context, index) =>
-                        PostsView(post: posts[index]),
+          StreamBuilder<List<PostModel>>(
+            stream: PostService.getAllPosts(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: _FeedMessage(
+                    icon: Icons.error_outline,
+                    title: 'Something went wrong',
+                    subtitle: 'Pull down to try again.',
                   ),
                 );
-              },
-            ),
-          ],
-        ),
+              }
+
+              if (!snapshot.hasData) {
+                return const _PostsSkeletonList();
+              }
+
+              final posts = snapshot.data!;
+              if (posts.isEmpty) {
+                return const SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: _FeedMessage(
+                    icon: Icons.photo_library_outlined,
+                    title: 'No posts yet',
+                    subtitle: 'Be the first to share something.',
+                  ),
+                );
+              }
+
+              return SliverList.separated(
+                itemCount: posts.length,
+                separatorBuilder: (_, __) => Divider(height: 1),
+                itemBuilder: (context, index) => PostsView(post: posts[index]),
+              );
+            },
+          ),
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
       ),
     );
   }
