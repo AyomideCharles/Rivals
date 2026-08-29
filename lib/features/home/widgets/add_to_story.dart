@@ -72,61 +72,73 @@ class _AddToStoryState extends State<AddToStory> {
         ],
       ),
       body: _selectedMedia == null
-          ? Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.add_photo_alternate_outlined,
-                    size: 72,
-                    color: context.cs.onSurface.withValues(alpha: 0.3),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Add a photo or video to your story',
-                    style: context.tt.bodyMedium?.copyWith(
-                      color: context.cs.onSurface.withValues(alpha: 0.5),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  AppButton(
-                    label: 'Pick Media',
-                    onPressed: _pickMedia,
-                    width: 160,
-                  ),
-                ],
-              ),
-            )
-          : Stack(
-              fit: StackFit.expand,
-              children: [
-                _isVideo
-                    ? const Center(
-                        child: Icon(
-                          Icons.play_circle_outline,
-                          size: 72,
-                          color: Colors.white,
-                        ),
-                      )
-                    : Image.file(_selectedMedia!, fit: BoxFit.cover),
+          ? _buildEmptyState(context)
+          : _buildPreview(),
+    );
+  }
 
-                Positioned(
-                  top: 16,
-                  left: 16,
-                  child: GestureDetector(
-                    onTap: _pickMedia,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: Colors.black45,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Icon(Icons.swap_horiz, color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
+  Widget _buildEmptyState(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 96,
+            height: 96,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppTheme.accent.withValues(alpha: 0.1),
             ),
+            child: Icon(
+              Icons.add_photo_alternate_outlined,
+              size: 44,
+              color: AppTheme.accent,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            'Add a photo or video to your story',
+            style: context.tt.bodyMedium?.copyWith(
+              color: context.cs.onSurface.withValues(alpha: 0.6),
+            ),
+          ),
+          const SizedBox(height: 24),
+          AppButton(label: 'Pick Media', onPressed: _pickMedia, width: 160),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPreview() {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        _isVideo
+            ? const Center(
+                child: Icon(
+                  Icons.play_circle_outline,
+                  size: 72,
+                  color: Colors.white,
+                ),
+              )
+            : Image.file(_selectedMedia!, fit: BoxFit.cover),
+
+        Positioned(
+          top: 16,
+          left: 16,
+          child: GestureDetector(
+            onTap: _pickMedia,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.black45,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: const Icon(Icons.swap_horiz, color: Colors.white),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

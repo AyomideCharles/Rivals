@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rivals/core/models/story_model.dart';
 import 'package:rivals/core/services/story_service.dart';
+import 'package:rivals/core/theme/app_theme.dart';
 
 class StoryViewer extends StatefulWidget {
   final List<StoryModel> stories;
@@ -88,29 +89,33 @@ class _StoryViewerState extends State<StoryViewer>
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.network(
-              story.mediaUrl,
-              fit: BoxFit.cover,
-              frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-                if (wasSynchronouslyLoaded || frame != null) {
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 150),
+              child: Image.network(
+                story.mediaUrl,
+                key: ValueKey(story.id),
+                fit: BoxFit.cover,
+                frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded || frame != null) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      if (_loading) _onImageLoaded();
+                    });
+                    return child;
+                  }
+                  return child;
+                },
+                errorBuilder: (_, __, ___) {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     if (_loading) _onImageLoaded();
                   });
-                  return child;
-                }
-                return child;
-              },
-              errorBuilder: (_, __, ___) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  if (_loading) _onImageLoaded();
-                });
-                return const ColoredBox(
-                  color: Colors.black,
-                  child: Center(
-                    child: Icon(Icons.broken_image, color: Colors.white),
-                  ),
-                );
-              },
+                  return const ColoredBox(
+                    color: Colors.black,
+                    child: Center(
+                      child: Icon(Icons.broken_image, color: Colors.white),
+                    ),
+                  );
+                },
+              ),
             ),
 
             const DecoratedBox(
@@ -125,7 +130,10 @@ class _StoryViewerState extends State<StoryViewer>
 
             if (_loading)
               const Center(
-                child: CircularProgressIndicator(color: Colors.white),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
+                ),
               ),
 
             SafeArea(
@@ -151,14 +159,16 @@ class _StoryViewerState extends State<StoryViewer>
                                 } else if (index == _currentIndex) {
                                   value = _progressController.value;
                                 }
-                                return LinearProgressIndicator(
-                                  value: value,
-                                  backgroundColor: Colors.white30,
-                                  valueColor: const AlwaysStoppedAnimation(
-                                    Colors.white,
-                                  ),
-                                  minHeight: 3,
+                                return ClipRRect(
                                   borderRadius: BorderRadius.circular(4),
+                                  child: LinearProgressIndicator(
+                                    value: value,
+                                    backgroundColor: Colors.white30,
+                                    valueColor: const AlwaysStoppedAnimation(
+                                      Colors.white,
+                                    ),
+                                    minHeight: 3,
+                                  ),
                                 );
                               },
                             ),
@@ -183,12 +193,19 @@ class _StoryViewerState extends State<StoryViewer>
                                   height: 36,
                                   fit: BoxFit.cover,
                                 )
-                              : CircleAvatar(
-                                  radius: 18,
+                              : Container(
+                                  width: 36,
+                                  height: 36,
+                                  color: AppTheme.accent,
+                                  alignment: Alignment.center,
                                   child: Text(
                                     story.displayName.isNotEmpty
                                         ? story.displayName[0].toUpperCase()
                                         : '?',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
                                 ),
                         ),
@@ -227,10 +244,10 @@ class _StoryViewerState extends State<StoryViewer>
                     if (context.mounted) Navigator.pop(context);
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Colors.black45,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
                       Icons.delete_outline,
