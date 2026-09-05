@@ -11,6 +11,8 @@ class StoryView extends StatelessWidget {
   final String? displayName;
   final List<StoryModel>? stories;
   final bool hasUnviewed;
+  final bool showAddButton;
+  final VoidCallback? onAdd;
 
   const StoryView({
     super.key,
@@ -20,6 +22,8 @@ class StoryView extends StatelessWidget {
     this.displayName,
     this.stories,
     this.hasUnviewed = false,
+    this.showAddButton = false,
+    this.onAdd,
   });
 
   static const double _avatarSize = 54;
@@ -41,7 +45,38 @@ class StoryView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                isAddStory ? _buildAddStory(context) : _buildRing(context),
+                isAddStory
+                    ? _buildAddStory(context)
+                    : Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          _buildRing(context),
+                          if (showAddButton)
+                            Positioned(
+                              right: -2,
+                              bottom: -2,
+                              child: GestureDetector(
+                                onTap: onAdd,
+                                child: Container(
+                                  padding: const EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppTheme.accent,
+                                    border: Border.all(
+                                      color: context.cs.surface,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: const Icon(
+                                    Iconsax.add,
+                                    size: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
                 const SizedBox(height: 6),
                 SizedBox(
                   width: _itemWidth - 4,
@@ -108,20 +143,11 @@ class StoryView extends StatelessWidget {
   }
 
   Widget _buildRing(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(2.5),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: hasUnviewed
-            ? LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [AppTheme.accent, AppTheme.accentDark],
-              )
-            : null,
-        border: !hasUnviewed
-            ? Border.all(color: context.cs.outline, width: 2)
-            : null,
+    return DottedBorder(
+      options: CircularDottedBorderOptions(
+        color: AppTheme.accent,
+        dashPattern: const [1, 1],
+        strokeWidth: 1.5,
       ),
       child: Container(
         padding: const EdgeInsets.all(2),
@@ -139,7 +165,18 @@ class StoryView extends StatelessWidget {
                     fit: BoxFit.cover,
                     errorBuilder: (_, __, ___) => _fallbackAvatar(context),
                   )
-                : _fallbackAvatar(context),
+                : Container(
+                    color: AppTheme.accent.withValues(alpha: 0.15),
+                    alignment: Alignment.center,
+                    child: Text(
+                      displayName != null && displayName!.isNotEmpty
+                          ? displayName![0].toUpperCase()
+                          : '?',
+                      style: context.tt.titleMedium?.copyWith(
+                        color: AppTheme.accent,
+                      ),
+                    ),
+                  ),
           ),
         ),
       ),
@@ -147,9 +184,13 @@ class StoryView extends StatelessWidget {
   }
 
   Widget _fallbackAvatar(BuildContext context) {
+    debugPrint('Profile image URL: $profileImageUrl');
+    debugPrint('Display name: $displayName');
+
     final initial = (displayName != null && displayName!.isNotEmpty)
-        ? displayName![0].toUpperCase()
+        ? displayName![3].toUpperCase()
         : '?';
+
     return Container(
       color: AppTheme.accent.withValues(alpha: 0.15),
       alignment: Alignment.center,

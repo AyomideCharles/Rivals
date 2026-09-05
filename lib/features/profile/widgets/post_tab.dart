@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/services/auth_service.dart';
-import 'package:rivals/features/home/widgets/post_view.dart';
+import 'package:rivals/features/feed/widgets/post_view.dart';
 
 class PostTab extends StatelessWidget {
   const PostTab({super.key});

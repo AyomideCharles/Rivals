@@ -85,7 +85,11 @@ class StoryService {
 
   // delete a story
   static Future<void> deleteStory(String storyId) async {
-    await _db.collection('stories').doc(storyId).delete();
+    try {
+      await _db.collection('stories').doc(storyId).delete();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   // check if current user has an active story

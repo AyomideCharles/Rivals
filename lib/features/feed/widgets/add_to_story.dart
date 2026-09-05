@@ -35,9 +35,7 @@ class _AddToStoryState extends State<AddToStory> {
       SmartDialog.showToast('Pick a photo or video first');
       return;
     }
-
     final auth = context.read<AuthProvider>();
-
     try {
       SmartDialog.showLoading(msg: 'Uploading story...');
       await StoryService.createStory(

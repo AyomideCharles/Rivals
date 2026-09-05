@@ -5,7 +5,7 @@ import 'package:rivals/core/services/follow_service.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
 import 'package:rivals/core/services/auth_service.dart';
-import 'package:rivals/features/home/widgets/post_view.dart';
+import 'package:rivals/features/feed/widgets/post_view.dart';
 import 'package:rivals/features/profile/widgets/follow_list.dart';
 import 'package:rivals/shared/app_bar.dart';
 import 'package:rivals/shared/app_follow_button.dart';

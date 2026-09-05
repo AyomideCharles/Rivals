@@ -3,7 +3,7 @@ import 'package:rivals/core/models/club_model.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/post_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/home/widgets/post_view.dart';
+import 'package:rivals/features/feed/widgets/post_view.dart';
 
 class ClubWallTab extends StatelessWidget {
   final ClubModel club;

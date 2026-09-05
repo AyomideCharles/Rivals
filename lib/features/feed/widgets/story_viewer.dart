@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rivals/core/models/story_model.dart';
 import 'package:rivals/core/services/story_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
+import 'package:rivals/features/feed/provider/feed_provider.dart';
 
 class StoryViewer extends StatefulWidget {
   final List<StoryModel> stories;
@@ -72,6 +74,7 @@ class _StoryViewerState extends State<StoryViewer>
 
   @override
   Widget build(BuildContext context) {
+    final feedProvider = context.read<FeedProvider>();
     final story = widget.stories[_currentIndex];
 
     return Scaffold(
@@ -240,8 +243,7 @@ class _StoryViewerState extends State<StoryViewer>
                 right: 16,
                 child: GestureDetector(
                   onTap: () async {
-                    await StoryService.deleteStory(story.id);
-                    if (context.mounted) Navigator.pop(context);
+                    await feedProvider.deletePost(story.id, context);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rivals/core/models/post_model.dart';
 import 'package:rivals/core/services/auth_service.dart';
 import 'package:rivals/core/theme/app_theme.dart';
-import 'package:rivals/features/home/widgets/users_profile.dart';
+import 'package:rivals/features/feed/widgets/users_profile.dart';
 import 'package:rivals/features/post/provider/post_provider.dart';
 import 'package:rivals/features/post/views/comments.dart';
 import 'package:rivals/shared/app_video_player.dart';
@@ -313,10 +313,7 @@ class _ImageBackgroundPost extends StatelessWidget {
                     ),
               errorBuilder: (_, __, ___) => Container(
                 color: context.cs.surface,
-                child: Icon(
-                  Icons.image_not_supported_outlined,
-                  color: context.cs.onSurfaceVariant,
-                ),
+                child: Icon(Iconsax.image, color: context.cs.onSurfaceVariant),
               ),
             ),
 

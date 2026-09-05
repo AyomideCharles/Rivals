@@ -5,7 +5,7 @@ import 'package:rivals/features/club/views/my_club.dart';
 import 'package:rivals/features/clips/clips.dart';
 import 'package:rivals/features/post/post.dart';
 import 'package:rivals/features/profile/profile.dart';
-import 'package:rivals/features/home/homepage.dart';
+import 'package:rivals/features/feed/feed_page.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -18,7 +18,7 @@ class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    const Homepage(),
+    const FeedPage(),
     const MyClub(),
     const Clips(),
     const Profile(),
